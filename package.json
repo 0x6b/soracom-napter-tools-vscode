@@ -1,0 +1,245 @@
+{
+  "name": "soracom-napter-tools",
+  "displayName": "SORACOM Napter Tools",
+  "description": "Manage SORACOM Napter port mappings from VS Code.",
+  "version": "0.4.3",
+  "publisher": "0x6b",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soracom/soracom-napter-tools"
+  },
+  "bugs": {
+    "url": "https://github.com/soracom/soracom-napter-tools/issues"
+  },
+  "homepage": "https://soracom.jp",
+  "engines": {
+    "vscode": "^1.40.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "SORACOM",
+    "napter",
+    "remote",
+    "remote development",
+    "ssh"
+  ],
+  "preview": true,
+  "qna": false,
+  "icon": "media/SISS024.png",
+  "license": "MIT",
+  "activationEvents": [
+    "onView:napterDataProvider"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "SORACOM Napter Tools",
+      "properties": {
+        "soracom.authkey.id": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "SORACOM API AuthKey ID"
+        },
+        "soracom.authkey.secret": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "SORACOM API AuthKey Secret"
+        },
+        "soracom.endpoint": {
+          "type": "string",
+          "default": "https://api.soracom.io",
+          "enum": [
+            "https://api.soracom.io",
+            "https://g.api.soracom.io"
+          ],
+          "enumDescriptions": [
+            "Japan coverage",
+            "Global coverage"
+          ],
+          "description": "Specifies coverage for SORACOM"
+        },
+        "soracom.napter.tlsRequired": {
+          "type": "boolean",
+          "default": false,
+          "description": "Specifies default value for SORACOM Napter TLS required option"
+        },
+        "soracom.napter.duration": {
+          "type": "number",
+          "default": 30,
+          "enum": [
+            30,
+            60,
+            120,
+            240,
+            480
+          ],
+          "enumDescriptions": [
+            "30 minutes",
+            "1 hour",
+            "2 hours",
+            "4 hours",
+            "8 hours"
+          ],
+          "description": "Specifies default minutes for SORACOM Napter port mapping duration"
+        },
+        "soracom.napter.port": {
+          "type": "number",
+          "default": 22,
+          "description": "Specifies default remote port number for SORACOM Napter port mapping"
+        },
+        "soracom.napter.ssh.user": {
+          "type": "string",
+          "default": "pi",
+          "description": "Specifies default remote user name for SORACOM Napter port mapping"
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "napterDataProvider",
+          "name": "Your SORACOM SIMs"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "napterDataProvider.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "media/refresh-light.svg",
+          "dark": "media/refresh-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
+        "command": "napterDataProvider.toggleCoverage",
+        "title": "Toggle Coverage",
+        "icon": {
+          "light": "media/globe-light.svg",
+          "dark": "media/globe-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
+        "command": "napterDataProvider.copy",
+        "title": "Copy Value",
+        "icon": {
+          "light": "media/clippy-light.svg",
+          "dark": "media/clippy-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
+        "command": "napterDataProvider.createPortMapping",
+        "title": "Create New Port Mapping",
+        "icon": {
+          "light": "media/remote-light.svg",
+          "dark": "media/remote-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
+        "command": "napterDataProvider.removePortMapping",
+        "title": "Remove Port Mapping",
+        "icon": {
+          "light": "media/trash-light.svg",
+          "dark": "media/trash-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
+        "command": "napterDataProvider.connect",
+        "title": "Connect via Visual Studio Code 'Remote - SSH' Extension",
+        "icon": {
+          "light": "media/console-light.svg",
+          "dark": "media/console-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
+        "command": "openUserConsole",
+        "title": "Open User Console",
+        "category": "SORACOM"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "napterDataProvider.refresh",
+          "when": "activeViewlet == 'workbench.view.explorer'"
+        },
+        {
+          "command": "napterDataProvider.copy",
+          "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "napterDataProvider.refresh",
+          "when": "view == napterDataProvider",
+          "group": "navigation"
+        },
+        {
+          "command": "napterDataProvider.toggleCoverage",
+          "when": "view == napterDataProvider",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "napterDataProvider.copy",
+          "when": "view == napterDataProvider && viewItem ==  imsi",
+          "group": "inline"
+        },
+        {
+          "command": "napterDataProvider.copy",
+          "when": "view == napterDataProvider && viewItem ==  portMappingEntry",
+          "group": "inline"
+        },
+        {
+          "command": "napterDataProvider.createPortMapping",
+          "when": "view == napterDataProvider && viewItem ==  imsi",
+          "group": "inline"
+        },
+        {
+          "command": "napterDataProvider.removePortMapping",
+          "when": "view == napterDataProvider && viewItem ==  portMapping"
+        },
+        {
+          "command": "napterDataProvider.connect",
+          "when": "view == napterDataProvider && viewItem ==  portMapping",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.40.0",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
+    "vscode-test": "^1.2.2"
+  },
+  "dependencies": {
+    "axios": "^0.19.0"
+  },
+  "prettier": {
+    "printWidth": 120
+  }
+}
