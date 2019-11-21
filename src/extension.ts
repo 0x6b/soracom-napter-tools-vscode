@@ -1,6 +1,6 @@
 import { commands, env, ExtensionContext, Uri, window, workspace } from "vscode";
 import { SoracomClient } from "./client/SoracomClient";
-import { NapterModel } from "./model/NapterModel";
+import { SoracomModel } from "./model/SoracomModel";
 import { NapterDataProvider } from "./provider/NapterDataProvider";
 
 export function activate(context: ExtensionContext) {
@@ -10,7 +10,7 @@ export function activate(context: ExtensionContext) {
 
   if (id !== "" && secret !== "") {
     const client = new SoracomClient(<string>id, <string>secret, <string>endpoint);
-    const model = new NapterModel(client);
+    const model = new SoracomModel(client);
     const provider = new NapterDataProvider(model);
 
     window.registerTreeDataProvider("napterDataProvider", provider);

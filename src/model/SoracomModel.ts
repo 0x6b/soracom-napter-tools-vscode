@@ -1,7 +1,7 @@
 import { SoracomClient } from "../client/SoracomClient";
 import { PortMapping, Subscriber, User } from "./types";
 
-export class NapterModel {
+export class SoracomModel {
   constructor(private readonly client: SoracomClient) {}
 
   public async listSubscribers(): Promise<Subscriber[]> {

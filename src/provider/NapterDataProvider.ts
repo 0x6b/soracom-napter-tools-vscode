@@ -12,7 +12,7 @@ import {
   window,
   workspace
 } from "vscode";
-import { NapterModel } from "../model/NapterModel";
+import { SoracomModel } from "../model/SoracomModel";
 import { PortMapping, Subscriber, User } from "../model/types";
 import { Node } from "./types";
 
@@ -34,7 +34,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private _onTreeRefreshed: EventEmitter<User> = new EventEmitter<User>();
   private onTreeRefreshed: Event<User> = this._onTreeRefreshed.event;
 
-  constructor(private readonly model: NapterModel) {
+  constructor(private readonly model: SoracomModel) {
     this.statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 0);
     this.statusBarItem.tooltip = "SORACOM Operator. Click to open User Console";
     this.statusBarItem.command = "openUserConsole";
