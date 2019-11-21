@@ -4,7 +4,7 @@ import { PortMapping, Subscriber, User } from "./types";
 export class NapterModel {
   constructor(private readonly client: SoracomClient) {}
 
-  public async getSubscribers(): Promise<Subscriber[]> {
+  public async listSubscribers(): Promise<Subscriber[]> {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: "/v1/subscribers",
@@ -16,7 +16,7 @@ export class NapterModel {
     return data.filter((s: Subscriber) => s.sessionStatus && s.sessionStatus.online);
   }
 
-  public async getPortMappings(): Promise<PortMapping[]> {
+  public async listPortMappings(): Promise<PortMapping[]> {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: "/v1/port_mappings",
@@ -52,7 +52,7 @@ export class NapterModel {
     return data;
   }
 
-  public async removePortMapping(endpoint: string): Promise<string> {
+  public async deletePortMapping(endpoint: string): Promise<string> {
     const { status, statusText } = await this.client.callApi({
       method: "DELETE",
       path: `/v1/port_mappings/${endpoint.replace(/:/, "/")}`

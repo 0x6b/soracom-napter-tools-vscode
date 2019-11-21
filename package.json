@@ -34,7 +34,7 @@
     "onCommand:napterDataProvider.refresh",
     "onCommand:napterDataProvider.toggleCoverage",
     "onCommand:napterDataProvider.createPortMapping",
-    "onCommand:napterDataProvider.removePortMapping",
+    "onCommand:napterDataProvider.deletePortMapping",
     "onCommand:napterDataProvider.connect",
     "onCommand:openUserConsole"
   ],
@@ -148,8 +148,8 @@
         "category": "SORACOM Napter"
       },
       {
-        "command": "napterDataProvider.removePortMapping",
-        "title": "Remove Port Mapping",
+        "command": "napterDataProvider.deletePortMapping",
+        "title": "Delete Port Mapping",
         "icon": {
           "light": "media/trash-light.svg",
           "dark": "media/trash-dark.svg"
@@ -211,7 +211,7 @@
           "group": "inline"
         },
         {
-          "command": "napterDataProvider.removePortMapping",
+          "command": "napterDataProvider.deletePortMapping",
           "when": "view == napterDataProvider && viewItem ==  portMapping"
         },
         {

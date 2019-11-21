@@ -59,7 +59,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   createPortMapping(node: Node | undefined): void {
     if (node === undefined) {
-      this.model.getSubscribers().then(subscribers => {
+      this.model.listSubscribers().then(subscribers => {
         this.pick(
           subscribers,
           (s: Subscriber) => {
@@ -77,26 +77,26 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
     }
   }
 
-  removePortMapping(node: Node): void {
+  deletePortMapping(node: Node): void {
     if (node === undefined) {
-      this.model.getPortMappings().then(portMappings => {
+      this.model.listPortMappings().then(portMappings => {
         this.pick(
           portMappings,
           (p: PortMapping) => p.endpoint,
           (endpoint: string) => {
-            this._removePortMapping(endpoint);
+            this._deletePortMapping(endpoint);
           },
           () => window.setStatusBarMessage("No port mapping to be removed", 5 * 1000)
         );
       });
     } else {
-      this._removePortMapping(node.resource);
+      this._deletePortMapping(node.resource);
     }
   }
 
   connect(node: Node): void {
     if (node === undefined) {
-      this.model.getPortMappings().then(portMappings => {
+      this.model.listPortMappings().then(portMappings => {
         this.pick(
           portMappings,
           (p: PortMapping) => p.endpoint,
@@ -135,9 +135,9 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       .catch(err => window.showErrorMessage(err.toString()));
   }
 
-  private _removePortMapping(endpoint: string): void {
+  private _deletePortMapping(endpoint: string): void {
     this.model
-      .removePortMapping(endpoint)
+      .deletePortMapping(endpoint)
       .then(() => this.refresh())
       .catch(err => window.showErrorMessage(err.toString()));
   }
@@ -171,7 +171,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private rootNode(): Promise<Node[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const subscribers = await this.model.getSubscribers();
+        const subscribers = await this.model.listSubscribers();
         this._onTreeRefreshed.fire(this.model.getUserInfo());
         resolve(this.transformToSubscriberNodes(subscribers));
       } catch (e) {
@@ -183,7 +183,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private childNodes(node: Node): Promise<Node[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const mappings = await this.model.getPortMappings();
+        const mappings = await this.model.listPortMappings();
         switch (node.contextValue) {
           case "imsi":
             resolve(this.transformToPortMappingNodes(mappings, node.resource));

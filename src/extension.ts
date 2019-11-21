@@ -30,7 +30,7 @@ export function activate(context: ExtensionContext) {
       }
     });
     commands.registerCommand("napterDataProvider.createPortMapping", arg => provider.createPortMapping(arg));
-    commands.registerCommand("napterDataProvider.removePortMapping", arg => provider.removePortMapping(arg));
+    commands.registerCommand("napterDataProvider.deletePortMapping", arg => provider.deletePortMapping(arg));
     commands.registerCommand("napterDataProvider.connect", arg => provider.connect(arg));
     commands.registerCommand("napterDataProvider.copy", arg => provider.copy(arg));
     commands.registerCommand("openUserConsole", () => env.openExternal(Uri.parse("https://console.soracom.io")));
