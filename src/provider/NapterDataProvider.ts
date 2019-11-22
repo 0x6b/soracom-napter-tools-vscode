@@ -120,10 +120,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   private _createPortMapping(imsi: string): void {
     const port = <number>getConfiguration("napter.port");
-    const duration =
-      typeof getConfiguration("napter.duration") === "undefined" // not sure why config is null sometimes
-        ? <number>getConfiguration("napter.duration") * 60
-        : 30 * 60;
+    const duration = <number>getConfiguration("napter.duration") * 60;
     const tlsRequired = <boolean>getConfiguration("napter.tlsRequired");
 
     this.model
