@@ -205,9 +205,44 @@
       ],
       "view/item/context": [
         {
-          "command": "napterDataProvider.copy",
+          "command": "napterDataProvider.createPortMapping",
           "when": "view == napterDataProvider && viewItem ==  imsi",
           "group": "inline"
+        },
+        {
+          "command": "napterDataProvider.createPortMapping",
+          "when": "view == napterDataProvider && viewItem ==  imsi",
+          "group": "imsiGroup@1"
+        },
+        {
+          "command": "napterDataProvider.copy",
+          "when": "view == napterDataProvider && viewItem ==  imsi",
+          "group": "imsiGroup@2"
+        },
+        {
+          "command": "napterDataProvider.connect",
+          "when": "view == napterDataProvider && viewItem ==  portMapping",
+          "group": "inline"
+        },
+        {
+          "command": "napterDataProvider.connect",
+          "when": "view == napterDataProvider && viewItem ==  portMapping",
+          "group": "portMappingGroup@1"
+        },
+        {
+          "command": "napterDataProvider.deletePortMapping",
+          "when": "view == napterDataProvider && viewItem ==  portMapping",
+          "group": "portMappingGroup@2"
+        },
+        {
+          "command": "napterDataProvider.copy",
+          "when": "view == napterDataProvider && viewItem ==  portMapping",
+          "group": "portMappingGroup@3"
+        },
+        {
+          "command": "napterDataProvider.copyAsSshCommand",
+          "when": "view == napterDataProvider && viewItem ==  portMapping",
+          "group": "portMappingGroup@4"
         },
         {
           "command": "napterDataProvider.copy",
@@ -215,22 +250,8 @@
           "group": "inline"
         },
         {
-          "command": "napterDataProvider.createPortMapping",
-          "when": "view == napterDataProvider && viewItem ==  imsi",
-          "group": "inline"
-        },
-        {
-          "command": "napterDataProvider.deletePortMapping",
-          "when": "view == napterDataProvider && viewItem ==  portMapping"
-        },
-        {
-          "command": "napterDataProvider.copyAsSshCommand",
-          "when": "view == napterDataProvider && viewItem ==  portMapping"
-        },
-        {
-          "command": "napterDataProvider.connect",
-          "when": "view == napterDataProvider && viewItem ==  portMapping",
-          "group": "inline"
+          "command": "napterDataProvider.copy",
+          "when": "view == napterDataProvider && viewItem ==  portMappingEntry"
         }
       ]
     }
