@@ -115,7 +115,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   copy(node: Node): void {
-    env.clipboard.writeText(node.resource);
+    env.clipboard.writeText(node.resource.toString());
   }
 
   private _createPortMapping(imsi: string): void {
