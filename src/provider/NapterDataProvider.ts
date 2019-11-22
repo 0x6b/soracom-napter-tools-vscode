@@ -118,6 +118,11 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
     env.clipboard.writeText(node.resource.toString());
   }
 
+  copyAsSshCommand(node: Node): void {
+    const [host, port] = node.resource.split(":");
+    env.clipboard.writeText(`ssh -p ${port} ${getConfiguration("napter.ssh.user")}@${host}`);
+  }
+
   private _createPortMapping(imsi: string): void {
     const port = <number>getConfiguration("napter.port");
     const duration = <number>getConfiguration("napter.duration") * 60;

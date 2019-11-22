@@ -139,6 +139,15 @@
         "category": "SORACOM Napter"
       },
       {
+        "command": "napterDataProvider.copyAsSshCommand",
+        "title": "Copy as SSH Command",
+        "icon": {
+          "light": "media/clippy-light.svg",
+          "dark": "media/clippy-dark.svg"
+        },
+        "category": "SORACOM Napter"
+      },
+      {
         "command": "napterDataProvider.createPortMapping",
         "title": "Create New Port Mapping",
         "icon": {
@@ -212,6 +221,10 @@
         },
         {
           "command": "napterDataProvider.deletePortMapping",
+          "when": "view == napterDataProvider && viewItem ==  portMapping"
+        },
+        {
+          "command": "napterDataProvider.copyAsSshCommand",
           "when": "view == napterDataProvider && viewItem ==  portMapping"
         },
         {

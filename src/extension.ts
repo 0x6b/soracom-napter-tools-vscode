@@ -33,6 +33,7 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand("napterDataProvider.deletePortMapping", arg => provider.deletePortMapping(arg));
     commands.registerCommand("napterDataProvider.connect", arg => provider.connect(arg));
     commands.registerCommand("napterDataProvider.copy", arg => provider.copy(arg));
+    commands.registerCommand("napterDataProvider.copyAsSshCommand", arg => provider.copyAsSshCommand(arg));
     commands.registerCommand("openUserConsole", () => env.openExternal(Uri.parse("https://console.soracom.io")));
 
     workspace.onDidChangeConfiguration(e => {
