@@ -58,6 +58,7 @@ Authkey method is recommended for security reason. Email and password should wor
 - group by SIM group
 - group by coverage
 - show audit log
+- [soracom/soracom-cli](https://github.com/soracom/soracom-cli/) configuration file (`~/.soracom/) and profiles support
 
 ## References
 
