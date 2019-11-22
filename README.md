@@ -18,7 +18,7 @@ Open the Explorer in the side bar and you can see **Your SORACOM SIMs** view. Yo
 
 |          View Icon           | Command                                                                 | Description                                                                                                                                                           |
 | :--------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![](media/remote-light.png)  | SORACOM Napter: Create New Port Mapping.                                | Create new port mapping                                                                                                                                               |
+| ![](media/remote-light.png)  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                              |
 |              -               | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                 |
 | ![](media/console-light.png) | SORACOM Napter: Connect via Visual Studio Code 'Remote - SSH' Extension | Open input box for **Remote - SSH** extension while copying connection string (`ssh://user@host:port`) in the clipboard. You can paste it and press enter to connect. |
 | ![](media/refresh-light.png) | SORACOM Napter: Refresh                                                 | Refresh **Your SORACOM SIMs** view in the Explorer.                                                                                                                   |
@@ -58,7 +58,7 @@ Authkey method is recommended for security reason. Email and password should wor
 - group by SIM group
 - group by coverage
 - show audit log
-- [soracom/soracom-cli](https://github.com/soracom/soracom-cli/) configuration file (`~/.soracom/) and profiles support
+- [soracom/soracom-cli](https://github.com/soracom/soracom-cli/) configuration file (`~/.soracom/*.json`) and profiles support
 
 ## References
 
