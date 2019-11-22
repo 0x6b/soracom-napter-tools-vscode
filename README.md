@@ -52,6 +52,13 @@ Authkey method is recommended for security reason. Email and password should wor
 
 - You cannot specify source IP addresses ranges.
 
+## TODOs or Ideas
+
+- i18n
+- group by SIM group
+- group by coverage
+- show audit log
+
 ## References
 
 - Japanese
