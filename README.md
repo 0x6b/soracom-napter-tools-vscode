@@ -19,7 +19,7 @@ Open the Explorer in the side bar and you can see **Your SORACOM SIMs** view. Yo
 |          View Icon           | Command                                                                 | Description                                                                                                                                                           |
 | :--------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![](media/remote-light.png)  | SORACOM Napter: Create New Port Mapping.                                | Create new port mapping                                                                                                                                               |
-|              -               | SORACOM Napter: Remove Port Mapping                                     | Remove existing port mapping. Also you can remove port mapping from right click menu.                                                                                 |
+|              -               | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                 |
 | ![](media/console-light.png) | SORACOM Napter: Connect via Visual Studio Code 'Remote - SSH' Extension | Open input box for **Remote - SSH** extension while copying connection string (`ssh://user@host:port`) in the clipboard. You can paste it and press enter to connect. |
 | ![](media/refresh-light.png) | SORACOM Napter: Refresh                                                 | Refresh **Your SORACOM SIMs** view in the Explorer.                                                                                                                   |
 |  ![](media/globe-light.png)  | SORACOM Napter: Toggle Coverage                                         | Toggle coverage between Japan and Global.                                                                                                                             |
@@ -30,14 +30,14 @@ Open the Explorer in the side bar and you can see **Your SORACOM SIMs** view. Yo
 
 This extension contributes the following settings.
 
-| Key                          | Description                                                          |
-| ---------------------------- | -------------------------------------------------------------------- |
-| `soracom.authkey.id`         | SORACOM API AuthKey ID                                               |
-| `soracom.authkey.secret`     | SORACOM API AuthKey secret                                           |
-| `soracom.endpoint`           | Specifies coverage for SORACOM                                       |
-| `soracom.napter.duration`    | Specifies default minutes for SORACOM Napter port mapping duration   |
-| `soracom.napter.port`        | Specifies default remote port number for SORACOM Napter port mapping |
-| `soracom.napter.ssh.user`    | Specifies default remote user name for SORACOM Napter port mapping   |
+| Key                       | Description                                                          |
+| ------------------------- | -------------------------------------------------------------------- |
+| `soracom.authkey.id`      | SORACOM API AuthKey ID                                               |
+| `soracom.authkey.secret`  | SORACOM API AuthKey secret                                           |
+| `soracom.endpoint`        | Specifies coverage for SORACOM                                       |
+| `soracom.napter.duration` | Specifies default minutes for SORACOM Napter port mapping duration   |
+| `soracom.napter.port`     | Specifies default remote port number for SORACOM Napter port mapping |
+| `soracom.napter.ssh.user` | Specifies default remote user name for SORACOM Napter port mapping   |
 
 ## Supported Authentication Method
 
