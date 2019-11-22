@@ -66,11 +66,6 @@
           ],
           "description": "Specifies coverage for SORACOM"
         },
-        "soracom.napter.tlsRequired": {
-          "type": "boolean",
-          "default": false,
-          "description": "Specifies default value for SORACOM Napter TLS required option"
-        },
         "soracom.napter.duration": {
           "type": "number",
           "default": 30,

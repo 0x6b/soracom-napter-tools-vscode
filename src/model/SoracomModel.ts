@@ -31,8 +31,7 @@ export class SoracomModel {
   public async createPortMapping(
     imsi: string,
     port: number,
-    duration: number,
-    tlsRequired: boolean
+    duration: number
   ): Promise<PortMapping> {
     const { data, status, statusText } = await this.client.callApi({
       method: "POST",
@@ -43,7 +42,7 @@ export class SoracomModel {
           port
         },
         duration,
-        tlsRequired
+        tlsRequired: false
       }
     });
     if (status !== 201) {

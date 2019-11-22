@@ -126,10 +126,9 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private _createPortMapping(imsi: string): void {
     const port = <number>getConfiguration("napter.port");
     const duration = <number>getConfiguration("napter.duration") * 60;
-    const tlsRequired = <boolean>getConfiguration("napter.tlsRequired");
 
     this.model
-      .createPortMapping(imsi, port, duration, tlsRequired)
+      .createPortMapping(imsi, port, duration)
       .then(result => {
         this.refresh();
         this._connect(result.endpoint);

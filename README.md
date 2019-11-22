@@ -35,7 +35,6 @@ This extension contributes the following settings.
 | `soracom.authkey.id`         | SORACOM API AuthKey ID                                               |
 | `soracom.authkey.secret`     | SORACOM API AuthKey secret                                           |
 | `soracom.endpoint`           | Specifies coverage for SORACOM                                       |
-| `soracom.napter.tlsRequired` | Specifies default value for SORACOM Napter TLS required option       |
 | `soracom.napter.duration`    | Specifies default minutes for SORACOM Napter port mapping duration   |
 | `soracom.napter.port`        | Specifies default remote port number for SORACOM Napter port mapping |
 | `soracom.napter.ssh.user`    | Specifies default remote user name for SORACOM Napter port mapping   |
