@@ -3,6 +3,7 @@ import { SoracomClient } from "./client/SoracomClient";
 import { SoracomModel } from "./model/SoracomModel";
 import { NapterDataProvider } from "./provider/NapterDataProvider";
 
+// @ts-ignore: noUnusedParameters
 export function activate(context: ExtensionContext) {
   const id = getConfiguration("authkey.id");
   const secret = getConfiguration("authkey.secret");
@@ -10,9 +11,9 @@ export function activate(context: ExtensionContext) {
   const mask = getConfiguration("debug.mask");
 
   if (id !== "" && secret !== "") {
-    const client = new SoracomClient(<string>id, <string>secret, <string>endpoint);
+    const client = new SoracomClient(id as string, secret as string, endpoint as string);
     const model = new SoracomModel(client);
-    const provider = new NapterDataProvider(model, <boolean>mask);
+    const provider = new NapterDataProvider(model, mask as boolean);
 
     window.registerTreeDataProvider("napterDataProvider", provider);
 
@@ -39,19 +40,19 @@ export function activate(context: ExtensionContext) {
 
     workspace.onDidChangeConfiguration(e => {
       if (e.affectsConfiguration("soracom.authkey.id")) {
-        client.authKeyId = <string>getConfiguration("authkey.id");
+        client.authKeyId = getConfiguration("authkey.id") as string;
         provider.refresh();
       }
       if (e.affectsConfiguration("soracom.authkey.secret")) {
-        client.authKeySecret = <string>getConfiguration("authkey.secret");
+        client.authKeySecret = getConfiguration("authkey.secret") as string;
         provider.refresh();
       }
       if (e.affectsConfiguration("soracom.endpoint")) {
-        client.endpoint = <string>getConfiguration("endpoint");
+        client.endpoint = getConfiguration("endpoint") as string;
         provider.refresh();
       }
       if (e.affectsConfiguration("soracom.debug.mask")) {
-        provider.mask = <boolean>getConfiguration("debug.mask");
+        provider.mask = getConfiguration("debug.mask") as boolean;
         provider.refresh();
       }
     });
@@ -66,6 +67,7 @@ export function activate(context: ExtensionContext) {
   }
 }
 
+// tslint:disable-next-line:no-empty
 export function deactivate() {}
 
 function getConfiguration(section: string) {

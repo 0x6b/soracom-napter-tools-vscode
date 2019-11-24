@@ -131,8 +131,8 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   private _createPortMapping(imsi: string): void {
-    const port = <number>getConfiguration("napter.port");
-    const duration = <number>getConfiguration("napter.duration") * 60;
+    const port = getConfiguration("napter.port") as number;
+    const duration = (getConfiguration("napter.duration") as number) * 60;
 
     this.model
       .createPortMapping(imsi, port, duration)
@@ -161,7 +161,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       .then(() => commands.executeCommand("opensshremotes.openEmptyWindow"));
   }
 
-  private pick<T>(collection: T[], map: Function, onFulfilled: Function, onRejected: Function): void {
+  private pick<T>(collection: T[], map: Function, onFulfilled: Function, onRejected: () => void): void {
     const candidates = collection.map(p => map(p));
     if (candidates.length > 0) {
       window.showQuickPick(candidates).then(pick => {
@@ -227,9 +227,9 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       });
   }
 
-  private transformToPortMappingNodes(portMappings: PortMapping[], resource: string): Node[] {
+  private transformToPortMappingNodes(portMappings: PortMapping[], imsi: string): Node[] {
     return portMappings
-      .filter(({ destination }) => destination.imsi === resource)
+      .filter(({ destination }) => destination.imsi === imsi)
       .map(({ endpoint }) => ({
         description: this.masked(endpoint, /\w/gi, "x"),
         resource: endpoint
@@ -245,9 +245,9 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       }));
   }
 
-  private transformToPortMappingDetailNodes(portMappings: PortMapping[], resource: string): Node[] {
+  private transformToPortMappingDetailNodes(portMappings: PortMapping[], target: string): Node[] {
     const result = portMappings
-      .filter(({ endpoint }) => endpoint === resource)
+      .filter(({ endpoint }) => endpoint === target)
       .map(
         ({
           hostname,
@@ -360,7 +360,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
           }
         ];
       });
-    return <Node[]>result[0];
+    return result[0] as Node[];
   }
 
   set mask(value: boolean) {

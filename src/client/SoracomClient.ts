@@ -62,7 +62,7 @@ export class SoracomClient {
 
     let url: string = `${this.endpoint}${params.path}`;
     if (params.query !== undefined) {
-      let q = [];
+      const q = [];
       for (const [key, value] of Object.entries(params.query)) {
         q.push(`${key}=${value}`);
       }
