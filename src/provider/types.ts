@@ -8,3 +8,10 @@ export class Node extends TreeItem {
   resource = "";
   contextValue = "";
 }
+
+export enum ContextValue {
+  NONE = "none",
+  IMSI = "imsi",
+  PORT_MAPPING = "portMapping",
+  PORT_MAPPING_ENTRY = "portMappingEntry"
+}

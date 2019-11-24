@@ -95,7 +95,7 @@
           "default": "pi",
           "description": "Specifies default remote user name for SORACOM Napter port mapping"
         },
-        "soracom.debug.mask": {
+        "soracom.mask": {
           "type": "boolean",
           "default": false,
           "description": "Controls mask of user identifiable information such as Operator ID, IMSI, IP address, port, etc."

@@ -14,7 +14,7 @@ import {
 } from "vscode";
 import { SoracomModel } from "../model/SoracomModel";
 import { PortMapping, Subscriber, User } from "../model/types";
-import { Node } from "./types";
+import { ContextValue, Node } from "./types";
 
 export class NapterDataProvider implements TreeDataProvider<Node> {
   private _onDidChangeTreeData: EventEmitter<Node | undefined> = new EventEmitter<Node | undefined>();
@@ -33,6 +33,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private statusBarItem: StatusBarItem;
   private _onTreeRefreshed: EventEmitter<User> = new EventEmitter<User>();
   private onTreeRefreshed: Event<User> = this._onTreeRefreshed.event;
+
   private _mask: boolean = false;
 
   constructor(private readonly model: SoracomModel, mask: boolean) {
@@ -193,10 +194,10 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       try {
         const mappings = await this.model.listPortMappings();
         switch (node.contextValue) {
-          case "imsi":
+          case ContextValue.IMSI:
             resolve(this.transformToPortMappingNodes(mappings, node.resource));
             break;
-          case "portMapping":
+          case ContextValue.PORT_MAPPING:
             resolve(this.transformToPortMappingDetailNodes(mappings, node.resource));
             break;
         }
@@ -221,7 +222,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
           tooltip: `${label} ${description}`,
           resource,
           collapsibleState: TreeItemCollapsibleState.Collapsed,
-          contextValue: "imsi",
+          contextValue: ContextValue.IMSI,
           iconPath: this.subscriberIconPath
         };
       });
@@ -240,7 +241,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
         tooltip: description,
         resource,
         collapsibleState: TreeItemCollapsibleState.Expanded,
-        contextValue: "portMapping",
+        contextValue: ContextValue.PORT_MAPPING,
         iconPath: this.portMappingIconPath
       }));
   }
@@ -292,7 +293,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.hostname,
             resource: resource.hostname,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "IP Address",
@@ -300,7 +301,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.ipAddress,
             resource: resource.ipAddress,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "Port",
@@ -308,7 +309,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.port,
             resource: resource.port,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "Duration",
@@ -316,7 +317,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.duration,
             resource: resource.duration,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "TLS Required",
@@ -324,7 +325,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.tlsRequired,
             resource: resource.tlsRequired,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "Destination Port",
@@ -332,7 +333,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.destPort,
             resource: resource.destPort,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "Source IP Addresses Ranges",
@@ -340,7 +341,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.ipRanges,
             resource: resource.ipRanges,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: "portMappingEntry"
+            contextValue: ContextValue.PORT_MAPPING_ENTRY
           },
           {
             label: "Created",
@@ -348,7 +349,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.createdTime,
             resource: resource.createdTime,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ""
+            contextValue: ContextValue.NONE
           },
           {
             label: "Expired",
@@ -356,7 +357,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.expiredTime,
             resource: resource.expiredTime,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ""
+            contextValue: ContextValue.NONE
           }
         ];
       });

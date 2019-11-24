@@ -38,7 +38,7 @@ This extension contributes the following settings.
 | `soracom.napter.duration` | Specifies default minutes for SORACOM Napter port mapping duration                               |
 | `soracom.napter.port`     | Specifies default remote port number for SORACOM Napter port mapping                             |
 | `soracom.napter.ssh.user` | Specifies default remote user name for SORACOM Napter port mapping                               |
-| `soracom.debug.mask`      | Controls mask of user identifiable information such as Operator ID, IMSI, IP address, port, etc. |
+| `soracom.mask`            | Controls mask of user identifiable information such as Operator ID, IMSI, IP address, port, etc. |
 
 ## Supported Authentication Method
 
