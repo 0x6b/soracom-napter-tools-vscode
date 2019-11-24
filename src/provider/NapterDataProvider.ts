@@ -33,16 +33,22 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private statusBarItem: StatusBarItem;
   private _onTreeRefreshed: EventEmitter<User> = new EventEmitter<User>();
   private onTreeRefreshed: Event<User> = this._onTreeRefreshed.event;
+  private _mask: boolean = false;
 
-  constructor(private readonly model: SoracomModel) {
+  constructor(private readonly model: SoracomModel, mask: boolean) {
     this.statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 0);
     this.statusBarItem.tooltip = "SORACOM Operator. Click to open User Console";
     this.statusBarItem.command = "openUserConsole";
 
     this.onTreeRefreshed(e => {
-      this.statusBarItem.text = `$(info) ${e.userName}@${e.operatorId}`;
+      this.statusBarItem.text = `$(info) ${this.masked(e.userName, /\w/gi, "x")}@${this.masked(
+        e.operatorId,
+        /\d/g,
+        "0"
+      )}`;
       this.statusBarItem.show();
     });
+    this.mask = mask;
   }
 
   getTreeItem(node: Node): TreeItem {
@@ -54,6 +60,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   refresh(): void {
+    this._onTreeRefreshed.fire();
     this._onDidChangeTreeData.fire();
   }
 
@@ -200,28 +207,38 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   private transformToSubscriberNodes(subscribers: Subscriber[]): Node[] {
-    return subscribers.map(s => {
-      const name = s.tags.name !== undefined ? s.tags.name : "no name";
-      return {
-        label: s.imsi,
-        description: name,
-        tooltip: `${s.imsi} ${name}`,
-        resource: s.imsi,
-        collapsibleState: TreeItemCollapsibleState.Collapsed,
-        contextValue: "imsi",
-        iconPath: this.subscriberIconPath
-      };
-    });
+    return subscribers
+      .map(({ imsi, tags }) => ({ imsi, name: tags.name !== undefined ? tags.name : "no name" }))
+      .map(({ imsi, name }) => ({
+        label: this.masked(imsi, /[\d]{12}$/, "000000000000"),
+        description: this.masked(name, /\p{Letter}/giu, "x"),
+        resource: imsi
+      }))
+      .map(({ label, description, resource }) => {
+        return {
+          label,
+          description,
+          tooltip: `${label} ${description}`,
+          resource,
+          collapsibleState: TreeItemCollapsibleState.Collapsed,
+          contextValue: "imsi",
+          iconPath: this.subscriberIconPath
+        };
+      });
   }
 
   private transformToPortMappingNodes(portMappings: PortMapping[], resource: string): Node[] {
     return portMappings
       .filter(({ destination }) => destination.imsi === resource)
       .map(({ endpoint }) => ({
+        description: this.masked(endpoint, /\w/gi, "x"),
+        resource: endpoint
+      }))
+      .map(({ description, resource }) => ({
         label: "Port Mapping",
-        description: endpoint,
-        tooltip: endpoint,
-        resource: endpoint,
+        description,
+        tooltip: description,
+        resource,
         collapsibleState: TreeItemCollapsibleState.Expanded,
         contextValue: "portMapping",
         iconPath: this.portMappingIconPath
@@ -242,84 +259,119 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
           destination: { port: destPort },
           createdTime,
           expiredTime
-        }) => {
-          return [
-            {
-              label: "Hostname",
-              description: hostname,
-              tooltip: hostname,
-              resource: hostname,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "IP Address",
-              description: ipAddress,
-              tooltip: ipAddress,
-              resource: ipAddress,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "Port",
-              description: `${port}`,
-              tooltip: `${port}`,
-              resource: port,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "Duration",
-              description: `${duration / 60 / 60} hours`,
-              tooltip: `${duration / 60 / 60} hours`,
-              resource: duration,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "TLS Required",
-              description: `${tlsRequired}`,
-              tooltip: `${tlsRequired}`,
-              resource: tlsRequired,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "Destination Port",
-              description: `${destPort}`,
-              tooltip: `${destPort}`,
-              resource: destPort,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "Source IP Addresses Ranges",
-              description: `${ipRanges.join(", ")}`,
-              tooltip: `${ipRanges.join(", ")}`,
-              resource: ipRanges,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: "portMappingEntry"
-            },
-            {
-              label: "Created",
-              description: toDate(createdTime),
-              tooltip: toDate(createdTime),
-              resource: createdTime,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: ""
-            },
-            {
-              label: "Expired",
-              description: toDate(expiredTime),
-              tooltip: toDate(expiredTime),
-              resource: expiredTime,
-              collapsibleState: TreeItemCollapsibleState.None,
-              contextValue: ""
-            }
-          ];
-        }
-      );
+        }) => ({
+          presentation: {
+            hostname: this.masked(hostname, /\d/g, "x"),
+            ipAddress: this.masked(ipAddress, /\d/g, "x"),
+            port: this.masked(port, /\d/g, "x"),
+            duration: `${duration / 60 / 60} hours`,
+            tlsRequired: `${tlsRequired}`,
+            ipRanges: ipRanges.map(ipRange => this.masked(ipRange, /\d/g, "x")).join(", "),
+            destPort: this.masked(destPort, /\d/g, "x"),
+            createdTime: toDate(createdTime),
+            expiredTime: toDate(expiredTime)
+          },
+          resource: {
+            hostname,
+            ipAddress,
+            port,
+            duration,
+            tlsRequired,
+            ipRanges,
+            destPort,
+            createdTime,
+            expiredTime
+          }
+        })
+      )
+      .map(({ presentation, resource }) => {
+        return [
+          {
+            label: "Hostname",
+            description: presentation.hostname,
+            tooltip: presentation.hostname,
+            resource: resource.hostname,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "IP Address",
+            description: presentation.ipAddress,
+            tooltip: presentation.ipAddress,
+            resource: resource.ipAddress,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "Port",
+            description: presentation.port,
+            tooltip: presentation.port,
+            resource: resource.port,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "Duration",
+            description: presentation.duration,
+            tooltip: presentation.duration,
+            resource: resource.duration,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "TLS Required",
+            description: presentation.tlsRequired,
+            tooltip: presentation.tlsRequired,
+            resource: resource.tlsRequired,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "Destination Port",
+            description: presentation.destPort,
+            tooltip: presentation.destPort,
+            resource: resource.destPort,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "Source IP Addresses Ranges",
+            description: presentation.ipRanges,
+            tooltip: presentation.ipRanges,
+            resource: resource.ipRanges,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: "portMappingEntry"
+          },
+          {
+            label: "Created",
+            description: presentation.createdTime,
+            tooltip: presentation.createdTime,
+            resource: resource.createdTime,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: ""
+          },
+          {
+            label: "Expired",
+            description: presentation.expiredTime,
+            tooltip: presentation.expiredTime,
+            resource: resource.expiredTime,
+            collapsibleState: TreeItemCollapsibleState.None,
+            contextValue: ""
+          }
+        ];
+      });
     return <Node[]>result[0];
+  }
+
+  set mask(value: boolean) {
+    this._mask = value;
+  }
+
+  private masked(value: string | number, pattern: RegExp, replaceValue: string): string {
+    if (this._mask) {
+      return value.toString().replace(pattern, replaceValue);
+    }
+    return value.toString();
   }
 }
 
