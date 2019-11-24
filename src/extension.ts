@@ -7,11 +7,12 @@ export function activate(context: ExtensionContext) {
   const id = getConfiguration("authkey.id");
   const secret = getConfiguration("authkey.secret");
   const endpoint = getConfiguration("endpoint");
+  const mask = getConfiguration("debug.mask");
 
   if (id !== "" && secret !== "") {
     const client = new SoracomClient(<string>id, <string>secret, <string>endpoint);
     const model = new SoracomModel(client);
-    const provider = new NapterDataProvider(model);
+    const provider = new NapterDataProvider(model, <boolean>mask);
 
     window.registerTreeDataProvider("napterDataProvider", provider);
 
@@ -47,6 +48,10 @@ export function activate(context: ExtensionContext) {
       }
       if (e.affectsConfiguration("soracom.endpoint")) {
         client.endpoint = <string>getConfiguration("endpoint");
+        provider.refresh();
+      }
+      if (e.affectsConfiguration("soracom.debug.mask")) {
+        provider.mask = <boolean>getConfiguration("debug.mask");
         provider.refresh();
       }
     });

@@ -30,14 +30,15 @@ Open the Explorer in the side bar and you can see **Your SORACOM SIMs** view. Yo
 
 This extension contributes the following settings.
 
-| Key                       | Description                                                          |
-| ------------------------- | -------------------------------------------------------------------- |
-| `soracom.authkey.id`      | SORACOM API AuthKey ID                                               |
-| `soracom.authkey.secret`  | SORACOM API AuthKey secret                                           |
-| `soracom.endpoint`        | Specifies coverage for SORACOM                                       |
-| `soracom.napter.duration` | Specifies default minutes for SORACOM Napter port mapping duration   |
-| `soracom.napter.port`     | Specifies default remote port number for SORACOM Napter port mapping |
-| `soracom.napter.ssh.user` | Specifies default remote user name for SORACOM Napter port mapping   |
+| Key                       | Description                                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `soracom.authkey.id`      | SORACOM API AuthKey ID                                                                           |
+| `soracom.authkey.secret`  | SORACOM API AuthKey secret                                                                       |
+| `soracom.endpoint`        | Specifies coverage for SORACOM                                                                   |
+| `soracom.napter.duration` | Specifies default minutes for SORACOM Napter port mapping duration                               |
+| `soracom.napter.port`     | Specifies default remote port number for SORACOM Napter port mapping                             |
+| `soracom.napter.ssh.user` | Specifies default remote user name for SORACOM Napter port mapping                               |
+| `soracom.debug.mask`      | Controls mask of user identifiable information such as Operator ID, IMSI, IP address, port, etc. |
 
 ## Supported Authentication Method
 
@@ -54,11 +55,11 @@ Authkey method is recommended for security reason. Email and password should wor
 
 ## TODOs or Ideas
 
-- i18n
-- group by SIM group
-- group by coverage
-- show audit log
-- [soracom/soracom-cli](https://github.com/soracom/soracom-cli/) configuration file (`~/.soracom/*.json`) and profiles support
+- implement i18n
+- display SIMs group by SIM group
+- display SIMs group by coverage
+- show Napter audit log
+- support [soracom/soracom-cli](https://github.com/soracom/soracom-cli/) configuration file (`~/.soracom/*.json`) and profiles
 
 ## References
 
