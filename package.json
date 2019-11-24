@@ -46,7 +46,7 @@
         "soracom.authkey.id": {
           "type": "string",
           "default": "",
-          "markdownDescription": "SORACOM API AuthKey ID"
+          "markdownDescription": "SORACOM API AuthKey ID. [SORACOM API 利用ガイド](https://dev.soracom.io/jp/docs/api_guide/) (Japanese) or [Soracom API Usage Guide](https://developers.soracom.io/en/docs/tools/api-reference/) (English) to configure your AuthKey ID and Secret."
         },
         "soracom.authkey.secret": {
           "type": "string",
