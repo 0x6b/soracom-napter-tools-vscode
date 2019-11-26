@@ -13,5 +13,9 @@ export enum ContextValue {
   NONE = "none",
   IMSI = "imsi",
   PORT_MAPPING = "portMapping",
-  PORT_MAPPING_ENTRY = "portMappingEntry"
+  PORT_MAPPING_ENTRY = "portMappingEntry",
+  SIM_DETAIL_ENTRY = "simDetailEntry",
+  SIM_DETAIL_ENTRY_GROUP = "simDetailEntryGroup",
+  SIM_SESSION_STATUS = "simSessionStatus",
+  SIM_SESSION_EVENT = "simSessionEvent"
 }
