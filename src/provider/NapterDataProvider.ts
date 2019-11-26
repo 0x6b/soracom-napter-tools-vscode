@@ -34,13 +34,17 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private _onTreeRefreshed: EventEmitter<User> = new EventEmitter<User>();
   private onTreeRefreshed: Event<User> = this._onTreeRefreshed.event;
 
-  private _onSubscriberSelected: EventEmitter<Node> = new EventEmitter<Node>();
-  private onSubscriberSelected: Event<Node> = this._onSubscriberSelected.event;
+  private _onSubscriberSelected: EventEmitter<string> = new EventEmitter<string>();
+  private onSubscriberSelected: Event<string> = this._onSubscriberSelected.event;
 
   private _mask: boolean = false;
 
   public addSubscriberChangeEventListener(fn: (e: any) => any) {
     this.onSubscriberSelected(fn);
+  }
+
+  public fireSubscriberChangeEvent(imsi: string) {
+    this._onSubscriberSelected.fire(imsi);
   }
 
   constructor(private readonly model: SoracomModel, mask: boolean) {
@@ -197,7 +201,6 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   private childNodes(node: Node): Promise<Node[]> {
-    this._onSubscriberSelected.fire(node);
     return new Promise(async (resolve, reject) => {
       try {
         const mappings = await this.model.listPortMappings();
@@ -231,7 +234,8 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
           resource,
           collapsibleState: TreeItemCollapsibleState.Collapsed,
           contextValue: ContextValue.IMSI,
-          iconPath: this.subscriberIconPath
+          iconPath: this.subscriberIconPath,
+          command: { title: "click", command: "napterDataProvider.fireSubscriberChangeEvent", arguments: [resource] }
         };
       });
   }

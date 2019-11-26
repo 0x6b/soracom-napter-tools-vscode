@@ -18,8 +18,8 @@ export class SimDataProvider implements TreeDataProvider<Node> {
     return node;
   }
 
-  updateSelected(e: Node) {
-    this._imsi = e.resource;
+  updateSelected(imsi: string) {
+    this.imsi = imsi;
     this.refresh();
   }
 
@@ -71,7 +71,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
     return [
       {
         label: "IMSI",
-        description: imsi,
+        description: this.masked(imsi, /[\d]{12}$/, "000000000000"),
         tooltip: imsi,
         resource: imsi,
         collapsibleState: TreeItemCollapsibleState.None,
@@ -79,7 +79,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       },
       {
         label: "Name",
-        description: tags.name === null ? "no name" : tags.name,
+        description: tags.name === null ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
         tooltip: tags.name === null ? "no name" : tags.name,
         resource: tags.name === null ? "no name" : tags.name,
         collapsibleState: TreeItemCollapsibleState.None,
@@ -119,7 +119,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       },
       {
         label: "IMEI",
-        description: sessionStatus.imei,
+        description: this.masked(sessionStatus.imei, /\d/g, "x"),
         tooltip: sessionStatus.imei,
         resource: sessionStatus.imei,
         collapsibleState: TreeItemCollapsibleState.None,
@@ -127,7 +127,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       },
       {
         label: "MSISDN",
-        description: msisdn,
+        description: this.masked(msisdn, /\d/g, "x"),
         tooltip: msisdn,
         resource: msisdn,
         collapsibleState: TreeItemCollapsibleState.None,
@@ -143,7 +143,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       },
       {
         label: "IP Address",
-        description: ipAddress,
+        description: this.masked(ipAddress, /\d/g, "x"),
         tooltip: ipAddress,
         resource: ipAddress,
         collapsibleState: TreeItemCollapsibleState.None,
@@ -165,7 +165,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       .map(({ cell: { radioType }, event, imei, time }) => {
         return {
           label: event,
-          description: `${toDate(time)} - ${imei} - ${radioType.toUpperCase()}`,
+          description: `${toDate(time)} - ${this.masked(imei, /\d/g, "x")} - ${radioType.toUpperCase()}`,
           tooltip: `${event}: ${toDate(time)} - ${imei} - ${radioType.toUpperCase()}`,
           resource: `${event}: ${toDate(time)} - ${imei} - ${radioType.toUpperCase()}`,
           collapsibleState: TreeItemCollapsibleState.None,
@@ -204,6 +204,13 @@ export class SimDataProvider implements TreeDataProvider<Node> {
 
   get mask() {
     return this._mask;
+  }
+
+  private masked(value: string | number, pattern: RegExp, replaceValue: string): string {
+    if (this.mask) {
+      return value.toString().replace(pattern, replaceValue);
+    }
+    return value.toString();
   }
 }
 
