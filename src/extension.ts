@@ -20,56 +20,63 @@ export function activate(context: ExtensionContext) {
   if (id !== "" && secret !== "") {
     const client = new SoracomClient(id, secret, endpoint);
     const model = new SoracomModel(client);
-    const provider = new NapterDataProvider(model, mask);
+    const napterDataProvider = new NapterDataProvider(model, mask);
     const simDataProvider = new SimDataProvider(model, mask);
 
-    window.registerTreeDataProvider("napterDataProvider", provider);
+    window.registerTreeDataProvider("napterDataProvider", napterDataProvider);
     window.registerTreeDataProvider("simDataProvider", simDataProvider);
-    provider.addSubscriberChangeEventListener(e => simDataProvider.updateSelected(e));
 
-    commands.registerCommand("napterDataProvider.refresh", () => provider.refresh());
+    commands.registerCommand("napterDataProvider.refresh", () => napterDataProvider.refresh());
     commands.registerCommand("napterDataProvider.toggleCoverage", () => {
       switch (getConfiguration("endpoint")) {
         case apiEndpoint.jp:
           workspace
             .getConfiguration(CONFIG_KEY)
             .update("endpoint", apiEndpoint.g, true)
-            .then(() => provider.refresh());
+            .then(() => napterDataProvider.refresh());
           break;
         case apiEndpoint.g:
           workspace
             .getConfiguration(CONFIG_KEY)
             .update("endpoint", apiEndpoint.jp, true)
-            .then(() => provider.refresh());
+            .then(() => napterDataProvider.refresh());
           break;
       }
     });
-    commands.registerCommand("napterDataProvider.createPortMapping", arg => provider.createPortMapping(arg));
-    commands.registerCommand("napterDataProvider.deletePortMapping", arg => provider.deletePortMapping(arg));
-    commands.registerCommand("napterDataProvider.connect", arg => provider.connect(arg));
-    commands.registerCommand("napterDataProvider.copy", arg => provider.copy(arg));
-    commands.registerCommand("napterDataProvider.copyAsSshCommand", arg => provider.copyAsSshCommand(arg));
+    commands.registerCommand("napterDataProvider.createPortMapping", arg => napterDataProvider.createPortMapping(arg));
+    commands.registerCommand("napterDataProvider.deletePortMapping", arg => napterDataProvider.deletePortMapping(arg));
+    commands.registerCommand("napterDataProvider.connect", arg => napterDataProvider.connect(arg));
+    commands.registerCommand("napterDataProvider.copy", arg => napterDataProvider.copy(arg));
+    commands.registerCommand("napterDataProvider.copyAsSshCommand", arg => napterDataProvider.copyAsSshCommand(arg));
     commands.registerCommand("openUserConsole", () => env.openExternal(Uri.parse("https://console.soracom.io")));
 
     commands.registerCommand("simDataProvider.copy", arg => simDataProvider.copy(arg));
     commands.registerCommand("simDataProvider.openGroupExternal", arg => simDataProvider.openGroupExternal(arg));
 
+    napterDataProvider.addSubscriberChangeEventListener(e => simDataProvider.updateSelected(e));
+    commands.registerCommand("napterDataProvider.fireSubscriberChangeEvent", arg =>
+      napterDataProvider.fireSubscriberChangeEvent(arg)
+    );
+
     workspace.onDidChangeConfiguration(e => {
       if (isAffected(e, "authkey.id")) {
         client.authKeyId = getConfiguration("authkey.id") as string;
-        provider.refresh();
+        napterDataProvider.refresh();
       }
       if (isAffected(e, "authkey.secret")) {
         client.authKeySecret = getConfiguration("authkey.secret") as string;
-        provider.refresh();
+        napterDataProvider.refresh();
       }
       if (isAffected(e, "endpoint")) {
         client.endpoint = getConfiguration("endpoint") as string;
-        provider.refresh();
+        napterDataProvider.refresh();
       }
       if (isAffected(e, "mask")) {
-        provider.mask = getConfiguration("mask") as boolean;
-        provider.refresh();
+        const m = getConfiguration("mask") as boolean;
+        napterDataProvider.mask = m;
+        simDataProvider.mask = m;
+        napterDataProvider.refresh();
+        simDataProvider.refresh();
       }
     });
   } else {

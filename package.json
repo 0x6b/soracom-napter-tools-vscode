@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from VS Code.",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -188,6 +188,10 @@
         "category": "SORACOM Napter"
       },
       {
+        "command": "napterDataProvider.fireSubscriberChangeEvent",
+        "title": "internal event"
+      },
+      {
         "command": "openUserConsole",
         "title": "Open User Console",
         "category": "SORACOM"
@@ -221,6 +225,10 @@
         },
         {
           "command": "simDataProvider.openGroupExternal",
+          "when": "false"
+        },
+        {
+          "command": "napterDataProvider.fireSubscriberChangeEvent",
           "when": "false"
         }
       ],
