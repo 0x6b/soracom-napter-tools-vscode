@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from VS Code.",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -102,11 +102,24 @@
         }
       }
     },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "soracomNapterTools",
+          "title": "SORACOM Napter Tools",
+          "icon": "media/SISS024-light.svg"
+        }
+      ]
+    },
     "views": {
-      "explorer": [
+      "soracomNapterTools": [
         {
           "id": "napterDataProvider",
           "name": "Your SORACOM SIMs"
+        },
+        {
+          "id": "simDataProvider",
+          "name": "SIM Detail"
         }
       ]
     },
@@ -178,6 +191,18 @@
         "command": "openUserConsole",
         "title": "Open User Console",
         "category": "SORACOM"
+      },
+      {
+        "command": "simDataProvider.copy",
+        "title": "Copy Value",
+        "icon": {
+          "light": "media/clippy-light.svg",
+          "dark": "media/clippy-dark.svg"
+        }
+      },
+      {
+        "command": "simDataProvider.openGroupExternal",
+        "title": "Open in User Console"
       }
     ],
     "menus": {
@@ -188,6 +213,14 @@
         },
         {
           "command": "napterDataProvider.copy",
+          "when": "false"
+        },
+        {
+          "command": "simDataProvider.copy",
+          "when": "false"
+        },
+        {
+          "command": "simDataProvider.openGroupExternal",
           "when": "false"
         }
       ],
@@ -252,9 +285,41 @@
         {
           "command": "napterDataProvider.copy",
           "when": "view == napterDataProvider && viewItem ==  portMappingEntry"
+        },
+        {
+          "command": "simDataProvider.copy",
+          "when": "view == simDataProvider && viewItem ==  simDetailEntry",
+          "group": "inline"
+        },
+        {
+          "command": "simDataProvider.copy",
+          "when": "view == simDataProvider && viewItem ==  simDetailEntry"
+        },
+        {
+          "command": "simDataProvider.copy",
+          "when": "view == simDataProvider && viewItem ==  simDetailEntryGroup"
+        },
+        {
+          "command": "simDataProvider.openGroupExternal",
+          "when": "view == simDataProvider && viewItem ==  simDetailEntryGroup"
+        },
+        {
+          "command": "simDataProvider.copy",
+          "when": "view == simDataProvider && viewItem ==  simSessionEvent",
+          "group": "inline"
+        },
+        {
+          "command": "simDataProvider.copy",
+          "when": "view == simDataProvider && viewItem ==  simSessionEvent"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "workbench.view.extension.soracomNapterTools",
+        "key": "ctrl+shift+n"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

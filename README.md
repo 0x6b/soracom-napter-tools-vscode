@@ -14,7 +14,7 @@ Napter is an on-demand networking service for devices using Soracom Air for Cell
 
 ## Usage
 
-Open the Explorer in the side bar and you can see **Your SORACOM SIMs** view. You can see your _online_ SIMs and list, create, and delete Napter port mappings. This extension contributes the following commands to your Visual Studio Code.
+Open the **SORACOM Napter Tools** view (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>n</kbd>) in the side bar and you can see **Your SORACOM SIMs** and **SIM Detail**. You can see your _online_ SIMs and list, create, and delete Napter port mappings. This extension contributes the following commands to your Visual Studio Code.
 
 |          View Icon           | Command                                                                 | Description                                                                                                                                                           |
 | :--------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -34,7 +34,14 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private _onTreeRefreshed: EventEmitter<User> = new EventEmitter<User>();
   private onTreeRefreshed: Event<User> = this._onTreeRefreshed.event;
 
+  private _onSubscriberSelected: EventEmitter<Node> = new EventEmitter<Node>();
+  private onSubscriberSelected: Event<Node> = this._onSubscriberSelected.event;
+
   private _mask: boolean = false;
+
+  public addSubscriberChangeEventListener(fn: (e: any) => any) {
+    this.onSubscriberSelected(fn);
+  }
 
   constructor(private readonly model: SoracomModel, mask: boolean) {
     this.statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 0);
@@ -190,6 +197,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   private childNodes(node: Node): Promise<Node[]> {
+    this._onSubscriberSelected.fire(node);
     return new Promise(async (resolve, reject) => {
       try {
         const mappings = await this.model.listPortMappings();
@@ -368,8 +376,12 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
     this._mask = value;
   }
 
+  get mask() {
+    return this._mask;
+  }
+
   private masked(value: string | number, pattern: RegExp, replaceValue: string): string {
-    if (this._mask) {
+    if (this.mask) {
       return value.toString().replace(pattern, replaceValue);
     }
     return value.toString();

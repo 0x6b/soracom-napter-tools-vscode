@@ -46,3 +46,24 @@ export interface User {
   operatorId: string;
   userName: string;
 }
+
+export interface SessionEvent {
+  apn: string;
+  cell: {
+    eci: number;
+    mcc: number;
+    mnc: number;
+    radioType: string;
+    tac: number;
+  };
+  createdTime: string;
+  dns0: string;
+  dns1: string;
+  event: string;
+  imei: string;
+  imsi: string;
+  operatorId: string;
+  primaryImsi: string;
+  time: number;
+  ueIpAddress: string;
+}

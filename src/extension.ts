@@ -2,6 +2,7 @@ import { commands, ConfigurationChangeEvent, env, ExtensionContext, Uri, window,
 import { SoracomClient } from "./client/SoracomClient";
 import { SoracomModel } from "./model/SoracomModel";
 import { NapterDataProvider } from "./provider/NapterDataProvider";
+import { SimDataProvider } from "./provider/SimDataProvider";
 
 const CONFIG_KEY = "soracom";
 enum apiEndpoint {
@@ -11,17 +12,20 @@ enum apiEndpoint {
 
 // @ts-ignore: noUnusedParameters
 export function activate(context: ExtensionContext) {
-  const id = getConfiguration("authkey.id");
-  const secret = getConfiguration("authkey.secret");
-  const endpoint = getConfiguration("endpoint");
-  const mask = getConfiguration("mask");
+  const id = getConfiguration("authkey.id") as string;
+  const secret = getConfiguration("authkey.secret") as string;
+  const endpoint = getConfiguration("endpoint") as string;
+  const mask = getConfiguration("mask") as boolean;
 
   if (id !== "" && secret !== "") {
-    const client = new SoracomClient(id as string, secret as string, endpoint as string);
+    const client = new SoracomClient(id, secret, endpoint);
     const model = new SoracomModel(client);
-    const provider = new NapterDataProvider(model, mask as boolean);
+    const provider = new NapterDataProvider(model, mask);
+    const simDataProvider = new SimDataProvider(model, mask);
 
     window.registerTreeDataProvider("napterDataProvider", provider);
+    window.registerTreeDataProvider("simDataProvider", simDataProvider);
+    provider.addSubscriberChangeEventListener(e => simDataProvider.updateSelected(e));
 
     commands.registerCommand("napterDataProvider.refresh", () => provider.refresh());
     commands.registerCommand("napterDataProvider.toggleCoverage", () => {
@@ -46,6 +50,9 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand("napterDataProvider.copy", arg => provider.copy(arg));
     commands.registerCommand("napterDataProvider.copyAsSshCommand", arg => provider.copyAsSshCommand(arg));
     commands.registerCommand("openUserConsole", () => env.openExternal(Uri.parse("https://console.soracom.io")));
+
+    commands.registerCommand("simDataProvider.copy", arg => simDataProvider.copy(arg));
+    commands.registerCommand("simDataProvider.openGroupExternal", arg => simDataProvider.openGroupExternal(arg));
 
     workspace.onDidChangeConfiguration(e => {
       if (isAffected(e, "authkey.id")) {

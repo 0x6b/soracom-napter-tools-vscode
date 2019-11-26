@@ -1,5 +1,5 @@
 import { SoracomClient } from "../client/SoracomClient";
-import { PortMapping, Subscriber, User } from "./types";
+import { PortMapping, SessionEvent, Subscriber, User } from "./types";
 
 export class SoracomModel {
   constructor(private readonly client: SoracomClient) {}
@@ -16,6 +16,17 @@ export class SoracomModel {
     return data.filter((s: Subscriber) => s.sessionStatus && s.sessionStatus.online);
   }
 
+  public async getSubscriber(imsi: string): Promise<Subscriber> {
+    const { data, status, statusText } = await this.client.callApi({
+      method: "GET",
+      path: `/v1/subscribers/${imsi}`
+    });
+    if (status !== 200) {
+      throw new Error(statusText);
+    }
+    return data;
+  }
+
   public async listPortMappings(): Promise<PortMapping[]> {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
@@ -28,11 +39,7 @@ export class SoracomModel {
     return data;
   }
 
-  public async createPortMapping(
-    imsi: string,
-    port: number,
-    duration: number
-  ): Promise<PortMapping> {
+  public async createPortMapping(imsi: string, port: number, duration: number): Promise<PortMapping> {
     const { data, status, statusText } = await this.client.callApi({
       method: "POST",
       path: `/v1/port_mappings`,
@@ -60,6 +67,18 @@ export class SoracomModel {
       throw new Error(statusText);
     }
     return "204";
+  }
+
+  public async listSessionEvents(imsi: string): Promise<SessionEvent[]> {
+    const { data, status, statusText } = await this.client.callApi({
+      method: "GET",
+      path: `/v1/subscribers/${imsi}/events/sessions`,
+      query: { limit: "10" }
+    });
+    if (status !== 200) {
+      throw new Error(statusText);
+    }
+    return data;
   }
 
   public getUserInfo(): User {
