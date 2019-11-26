@@ -36,7 +36,8 @@
     "onCommand:napterDataProvider.createPortMapping",
     "onCommand:napterDataProvider.deletePortMapping",
     "onCommand:napterDataProvider.connect",
-    "onCommand:openUserConsole"
+    "onCommand:openUserConsole",
+    "onCommand:simDataProvider.refresh"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -126,7 +127,7 @@
     "commands": [
       {
         "command": "napterDataProvider.refresh",
-        "title": "Refresh",
+        "title": "Refresh SIMs List",
         "icon": {
           "light": "media/refresh-light.svg",
           "dark": "media/refresh-dark.svg"
@@ -207,14 +208,19 @@
       {
         "command": "simDataProvider.openGroupExternal",
         "title": "Open in User Console"
+      },
+      {
+        "command": "simDataProvider.refresh",
+        "title": "Refresh SIM Status",
+        "icon": {
+          "light": "media/refresh-light.svg",
+          "dark": "media/refresh-dark.svg"
+        },
+        "category": "SORACOM Napter"
       }
     ],
     "menus": {
       "commandPalette": [
-        {
-          "command": "napterDataProvider.refresh",
-          "when": "activeViewlet == 'workbench.view.explorer'"
-        },
         {
           "command": "napterDataProvider.copy",
           "when": "false"
@@ -241,6 +247,11 @@
         {
           "command": "napterDataProvider.toggleCoverage",
           "when": "view == napterDataProvider",
+          "group": "navigation"
+        },
+        {
+          "command": "simDataProvider.refresh",
+          "when": "view == simDataProvider",
           "group": "navigation"
         }
       ],

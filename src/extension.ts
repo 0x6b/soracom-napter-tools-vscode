@@ -52,6 +52,7 @@ export function activate(context: ExtensionContext) {
 
     commands.registerCommand("simDataProvider.copy", arg => simDataProvider.copy(arg));
     commands.registerCommand("simDataProvider.openGroupExternal", arg => simDataProvider.openGroupExternal(arg));
+    commands.registerCommand("simDataProvider.refresh", () => simDataProvider.refresh());
 
     napterDataProvider.addSubscriberChangeEventListener(e => simDataProvider.updateSelected(e));
     commands.registerCommand("napterDataProvider.fireSubscriberChangeEvent", arg =>
