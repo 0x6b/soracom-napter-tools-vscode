@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from VS Code.",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -342,10 +342,13 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "precompile": "npm run clean",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "clean": "rimraf \"out/**/*.js\"",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
@@ -355,6 +358,7 @@
     "glob": "^7.1.5",
     "mocha": "^6.2.2",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "ts-node": "^8.5.2",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
