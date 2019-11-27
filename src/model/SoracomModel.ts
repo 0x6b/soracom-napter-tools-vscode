@@ -85,7 +85,7 @@ export class SoracomModel {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: "/v1/audit_logs/napter",
-      query: { resource_type: "subscriber", resource_id: imsi, limit: "10" }
+      query: { resource_type: "Subscriber", resource_id: imsi, limit: "10" }
     });
     if (status !== 200) {
       throw new Error(statusText);

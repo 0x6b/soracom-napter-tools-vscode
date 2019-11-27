@@ -87,17 +87,17 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       },
       {
         label: "Name",
-        description: tags.name === null ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
-        tooltip: tags.name === null ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
-        resource: tags.name === null ? "no name" : tags.name,
+        description: tags.name === undefined ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
+        tooltip: tags.name === undefined ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
+        resource: tags.name === undefined ? "no name" : tags.name,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY
       },
       {
         label: "Group ID",
-        description: groupId === null ? "no group" : groupId,
-        tooltip: groupId === null ? "no group" : groupId,
-        resource: groupId === null ? "" : groupId,
+        description: groupId === undefined ? "no group" : groupId,
+        tooltip: groupId === undefined ? "no group" : groupId,
+        resource: groupId === undefined ? "" : groupId,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY_GROUP
       },
