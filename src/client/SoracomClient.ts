@@ -18,7 +18,7 @@ export class SoracomClient {
     this._authKeySecret = authKeySecret;
     this._endpoint = endpoint;
     this.axios = axios.create({
-      headers: { "user-agent": "vscode-soracom-napter-tools" }
+      headers: { "user-agent": "vscode-soracom-napter-tools", accept: "application/json" }
     });
     this.axios.defaults.headers.post["content-type"] = "application/json";
   }

@@ -1,5 +1,5 @@
 import { SoracomClient } from "../client/SoracomClient";
-import { PortMapping, SessionEvent, Subscriber, User } from "./types";
+import { AuditLog, PortMapping, SessionEvent, Subscriber, User } from "./types";
 
 export class SoracomModel {
   constructor(private readonly client: SoracomClient) {}
@@ -74,6 +74,18 @@ export class SoracomModel {
       method: "GET",
       path: `/v1/subscribers/${imsi}/events/sessions`,
       query: { limit: "10" }
+    });
+    if (status !== 200) {
+      throw new Error(statusText);
+    }
+    return data;
+  }
+
+  public async getNapterAuditLogs(imsi: string): Promise<AuditLog[]> {
+    const { data, status, statusText } = await this.client.callApi({
+      method: "GET",
+      path: "/v1/audit_logs/napter",
+      query: { resource_type: "subscriber", resource_id: imsi, limit: "10" }
     });
     if (status !== 200) {
       throw new Error(statusText);

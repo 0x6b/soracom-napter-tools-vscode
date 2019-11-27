@@ -67,3 +67,18 @@ export interface SessionEvent {
   time: number;
   ueIpAddress: string;
 }
+
+export interface AuditLog {
+  operatorId: string;
+  imsi: string;
+  connectionId: string;
+  type: "ACCESS" | "CONNECTED" | "CLOSED" | "DENIED" | "REFUSED";
+  direction: {
+    destinationIPAddress: string;
+    destinationPort: number;
+    sourceIPAddress: string;
+    sourcePort: number;
+  };
+  createdAt: number;
+  tls: boolean;
+}

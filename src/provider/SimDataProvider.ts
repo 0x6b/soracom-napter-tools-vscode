@@ -1,7 +1,7 @@
 import { env, Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState, Uri, window } from "vscode";
 import { ContextValue, Node } from "./types";
 import { SoracomModel } from "../model/SoracomModel";
-import { SessionEvent, Subscriber } from "../model/types";
+import { AuditLog, SessionEvent, Subscriber } from "../model/types";
 
 export class SimDataProvider implements TreeDataProvider<Node> {
   private _onDidChangeTreeData: EventEmitter<Node | undefined> = new EventEmitter<Node | undefined>();
@@ -48,6 +48,14 @@ export class SimDataProvider implements TreeDataProvider<Node> {
           try {
             const sessionEvents = await this.model.listSessionEvents(node.resource);
             resolve(this.transformToSessionEventsNodes(sessionEvents));
+          } catch (e) {
+            reject(e);
+          }
+          break;
+        case ContextValue.SIM_AUDIT_LOG:
+          try {
+            const auditLogs = await this.model.getNapterAuditLogs(node.resource);
+            resolve(this.transformToAuditLogsNodes(auditLogs));
           } catch (e) {
             reject(e);
           }
@@ -150,11 +158,18 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         contextValue: ContextValue.SIM_DETAIL_ENTRY
       },
       {
-        label: "Session Events",
+        label: "Last 10 Session Events",
         description: "",
         resource: imsi,
         collapsibleState: TreeItemCollapsibleState.Collapsed,
         contextValue: ContextValue.SIM_SESSION_STATUS
+      },
+      {
+        label: "Last 10 Audit Logs",
+        description: "",
+        resource: imsi,
+        collapsibleState: TreeItemCollapsibleState.Collapsed,
+        contextValue: ContextValue.SIM_AUDIT_LOG
       }
     ];
   }
@@ -163,15 +178,40 @@ export class SimDataProvider implements TreeDataProvider<Node> {
     return events
       .map(e => (typeof e.cell === "undefined" ? Object.assign(e, { cell: { radioType: "unknown" } }) : e))
       .map(({ cell: { radioType }, event, imei, time }) => {
+        const e = event.toUpperCase();
+        const d = toDate(time);
+        const r = radioType.toUpperCase();
         return {
-          label: event,
-          description: `${toDate(time)} - ${this.masked(imei, /\d/g, "x")} - ${radioType.toUpperCase()}`,
-          tooltip: `${event}: ${toDate(time)} - ${imei} - ${radioType.toUpperCase()}`,
-          resource: `${event}: ${toDate(time)} - ${imei} - ${radioType.toUpperCase()}`,
+          label: e,
+          description: `${d} - ${this.masked(imei, /\d/g, "x")} - ${r}`,
+          tooltip: `${e}: ${d} - ${imei} - ${r}`,
+          resource: `${e}: ${d} - ${imei} - ${r}`,
           collapsibleState: TreeItemCollapsibleState.None,
           contextValue: ContextValue.SIM_SESSION_EVENT
         };
       });
+  }
+
+  private transformToAuditLogsNodes(logs: AuditLog[]): Node[] {
+    return logs.map(
+      ({
+        createdAt,
+        direction: { destinationIPAddress, destinationPort, sourceIPAddress, sourcePort },
+        imsi,
+        type
+      }) => {
+        const d = toDate(createdAt);
+        const dir = `${sourceIPAddress}:${sourcePort} > ${destinationIPAddress}:${destinationPort}`;
+        return {
+          label: type,
+          description: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")} - ${this.masked(dir, /\d/g, "x")}`,
+          tooltip: `${d} - ${imsi} - ${dir}`,
+          resource: `${type}: ${d} - ${imsi} - ${dir}`,
+          collapsibleState: TreeItemCollapsibleState.None,
+          contextValue: ContextValue.SIM_AUDIT_LOG_ENTRY
+        };
+      }
+    );
   }
 
   refresh(): void {

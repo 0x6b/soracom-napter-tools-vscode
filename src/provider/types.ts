@@ -17,5 +17,7 @@ export enum ContextValue {
   SIM_DETAIL_ENTRY = "simDetailEntry",
   SIM_DETAIL_ENTRY_GROUP = "simDetailEntryGroup",
   SIM_SESSION_STATUS = "simSessionStatus",
-  SIM_SESSION_EVENT = "simSessionEvent"
+  SIM_SESSION_EVENT = "simSessionEvent",
+  SIM_AUDIT_LOG = "simAuditLog",
+  SIM_AUDIT_LOG_ENTRY = "simAuditLogEvent"
 }
