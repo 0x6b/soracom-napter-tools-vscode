@@ -24,6 +24,8 @@ You can open **SORACOM Napter Tools** view which you can see list of your SIMs a
 
 You can see your _online_ SIMs and list, create, and delete Napter port mappings.
 
+<img src="media/your-soracom-sims-view.png" width="50%"/>
+
 |                            Icon                             | Command                                                                 | Description                                                                                                                                                           |
 | :---------------------------------------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <img src="media/remote-light.png" width="24" height="24"/>  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                              |
@@ -37,6 +39,8 @@ You can see your _online_ SIMs and list, create, and delete Napter port mappings
 
 When you select a SIM at Your SORACOM SIMs view, detail of the SIM will be displayed.
 
+<img src="media/sim-detail-view.png" width="50%"/>
+
 |                            Icon                             | Command                            | Description                                                   |
 | :---------------------------------------------------------: | ---------------------------------- | ------------------------------------------------------------- |
 | <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIM Status | Refresh **SIM Detail** view in the SORACOM Napter Tools view. |
@@ -45,6 +49,8 @@ When you select a SIM at Your SORACOM SIMs view, detail of the SIM will be displ
 ### Status Bar
 
 Your user name and SORACOM operator ID will be displayed in the status bar once API authentication succeeded. Click the status bar item to open [SORACOM User Console](https://console.soracom.io).
+
+<img src="media/statusbar.png" width="50%"/>
 
 | Icon | Command                    | Description                                                              |
 | :--: | -------------------------- | ------------------------------------------------------------------------ |
