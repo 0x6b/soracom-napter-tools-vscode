@@ -80,7 +80,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       {
         label: "IMSI",
         description: this.masked(imsi, /[\d]{12}$/, "000000000000"),
-        tooltip: imsi,
+        tooltip: this.masked(imsi, /[\d]{12}$/, "000000000000"),
         resource: imsi,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY
@@ -88,7 +88,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       {
         label: "Name",
         description: tags.name === null ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
-        tooltip: tags.name === null ? "no name" : tags.name,
+        tooltip: tags.name === null ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
         resource: tags.name === null ? "no name" : tags.name,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY
@@ -128,7 +128,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       {
         label: "IMEI",
         description: this.masked(sessionStatus.imei, /\d/g, "x"),
-        tooltip: sessionStatus.imei,
+        tooltip: this.masked(sessionStatus.imei, /\d/g, "x"),
         resource: sessionStatus.imei,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY
@@ -136,7 +136,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       {
         label: "MSISDN",
         description: this.masked(msisdn, /\d/g, "x"),
-        tooltip: msisdn,
+        tooltip: this.masked(msisdn, /\d/g, "x"),
         resource: msisdn,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY
@@ -152,7 +152,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
       {
         label: "IP Address",
         description: this.masked(ipAddress, /\d/g, "x"),
-        tooltip: ipAddress,
+        tooltip: this.masked(ipAddress, /\d/g, "x"),
         resource: ipAddress,
         collapsibleState: TreeItemCollapsibleState.None,
         contextValue: ContextValue.SIM_DETAIL_ENTRY
@@ -184,7 +184,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         return {
           label: e,
           description: `${d} - ${this.masked(imei, /\d/g, "x")} - ${r}`,
-          tooltip: `${e}: ${d} - ${imei} - ${r}`,
+          tooltip: `${e}: ${d} - ${this.masked(imei, /\d/g, "x")} - ${r}`,
           resource: `${e}: ${d} - ${imei} - ${r}`,
           collapsibleState: TreeItemCollapsibleState.None,
           contextValue: ContextValue.SIM_SESSION_EVENT
@@ -205,7 +205,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         return {
           label: type,
           description: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")} - ${this.masked(dir, /\d/g, "x")}`,
-          tooltip: `${d} - ${imsi} - ${dir}`,
+          tooltip: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")} - ${this.masked(dir, /\d/g, "x")}`,
           resource: `${type}: ${d} - ${imsi} - ${dir}`,
           collapsibleState: TreeItemCollapsibleState.None,
           contextValue: ContextValue.SIM_AUDIT_LOG_ENTRY
