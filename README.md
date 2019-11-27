@@ -16,7 +16,7 @@ Napter is an on-demand networking service for devices using Soracom Air for Cell
 
 You can open **SORACOM Napter Tools** view which you can see list of your SIMs and details by one of following methods:
 
-- Click the icon <img src="media/SISS024-light.svg" width="24" height="24"> in the Activity Bar
+- Click the icon <img src="media/SISS024-light.png" width="24" height="24"> in the Activity Bar
 - Open Command Palette (<kbd>⇧⌘P</kbd>) then type <kbd>Show SORACOM Napter Tools</kbd>
 - Default shortcut key (<kbd>⌃⌘N</kbd>)
 

@@ -10,3 +10,9 @@ src/**
 *.vsix
 .idea/**
 .git/**
+media/SISS024-light.png
+media/clippy-light.png
+media/console-light.png
+media/globe-light.png
+media/refresh-light.png
+media/remote-light.png
