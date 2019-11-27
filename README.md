@@ -14,32 +14,57 @@ Napter is an on-demand networking service for devices using Soracom Air for Cell
 
 ## Usage
 
-Open the **SORACOM Napter Tools** view (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>n</kbd>) in the side bar and you can see **Your SORACOM SIMs** and **SIM Detail**. You can see your _online_ SIMs and list, create, and delete Napter port mappings. This extension contributes the following commands to your Visual Studio Code.
+You can open **SORACOM Napter Tools** view which you can see list of your SIMs and details by one of following methods:
 
-|          View Icon           | Command                                                                 | Description                                                                                                                                                           |
-| :--------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![](media/remote-light.png)  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                              |
-|              -               | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                 |
-| ![](media/console-light.png) | SORACOM Napter: Connect via Visual Studio Code 'Remote - SSH' Extension | Open input box for **Remote - SSH** extension while copying connection string (`ssh://user@host:port`) in the clipboard. You can paste it and press enter to connect. |
-| ![](media/refresh-light.png) | SORACOM Napter: Refresh SIMs List                                       | Refresh **Your SORACOM SIMs** view in the SORACOM Napter Tools view.                                                                                                  |
-| ![](media/refresh-light.png) | SORACOM Napter: Refresh SIM Status                                      | Refresh **SIM Detail** view in the SORACOM Napter Tools view.                                                                                                         |
-|  ![](media/globe-light.png)  | SORACOM Napter: Toggle Coverage                                         | Toggle coverage between Japan and Global.                                                                                                                             |
-| ![](media/clippy-light.png)  | -                                                                       | Copy item value to the clipboard if applicable.                                                                                                                       |
-|              -               | SORACOM: Open User Console                                              | Open [SORACOM User Console](https://console.soracom.io) in your browser.                                                                                              |
+- Click the icon <img src="media/SISS024-light.svg" width="24" height="24"> in the Activity Bar
+- Open Command Palette (<kbd>⇧⌘P</kbd>) then type <kbd>Show SORACOM Napter Tools</kbd>
+- Default shortcut key (<kbd>⌃⌘N</kbd>)
+
+### Your SORACOM SIMs View
+
+You can see your _online_ SIMs and list, create, and delete Napter port mappings.
+
+|                            Icon                             | Command                                                                 | Description                                                                                                                                                           |
+| :---------------------------------------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="media/remote-light.png" width="24" height="24"/>  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                              |
+|                              -                              | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                 |
+| <img src="media/console-light.png" width="24" height="24"/> | SORACOM Napter: Connect via Visual Studio Code 'Remote - SSH' Extension | Open input box for the **Remote - SSH** extension while copying connection string (`ssh://user@host:port`) in the clipboard. You can paste it and press enter to connect. |
+| <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIMs List                                       | Refresh **Your SORACOM SIMs** view in the SORACOM Napter Tools view.                                                                                                  |
+|  <img src="media/globe-light.png" width="24" height="24"/>  | SORACOM Napter: Toggle Coverage                                         | Toggle coverage between Japan and Global.                                                                                                                             |
+| <img src="media/clippy-light.png" width="24" height="24"/>  | -                                                                       | Copy item value to the clipboard if applicable.                                                                                                                       |
+
+### SIM Detail View
+
+When you select a SIM at Your SORACOM SIMs view, detail of the SIM will be displayed.
+
+|                            Icon                             | Command                            | Description                                                   |
+| :---------------------------------------------------------: | ---------------------------------- | ------------------------------------------------------------- |
+| <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIM Status | Refresh **SIM Detail** view in the SORACOM Napter Tools view. |
+| <img src="media/clippy-light.png" width="24" height="24"/>  | -                                  | Copy item value to the clipboard if applicable.               |
+
+### Status Bar
+
+Your user name and SORACOM operator ID will be displayed in the status bar once API authentication succeeded. Click the status bar item to open [SORACOM User Console](https://console.soracom.io).
+
+| Icon | Command                    | Description                                                              |
+| :--: | -------------------------- | ------------------------------------------------------------------------ |
+|  -   | SORACOM: Open User Console | Open [SORACOM User Console](https://console.soracom.io) in your browser. |
 
 ## Extension Settings
 
 This extension contributes the following settings.
 
-| Key                       | Description                                                                                      |
-| ------------------------- | ------------------------------------------------------------------------------------------------ |
-| `soracom.authkey.id`      | SORACOM API AuthKey ID                                                                           |
-| `soracom.authkey.secret`  | SORACOM API AuthKey secret                                                                       |
-| `soracom.endpoint`        | Specifies coverage for SORACOM                                                                   |
-| `soracom.napter.duration` | Specifies default minutes for SORACOM Napter port mapping duration                               |
-| `soracom.napter.port`     | Specifies default remote port number for SORACOM Napter port mapping                             |
-| `soracom.napter.ssh.user` | Specifies default remote user name for SORACOM Napter port mapping                               |
-| `soracom.mask`            | Controls mask of user identifiable information such as Operator ID, IMSI, IP address, port, etc. |
+| Key                                | Description                                                                                                                                                                                                                            |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `soracom.auth.useCliConfiguration` | Use [soracom-cli](https://github.com/soracom/soracom-cli/) configuration files (`.soracom/*.json` under `$SORACOM_PROFILE_DIR` or `$HOME` directory) instead of AuthKey ID and Secret configured above. Restart required when changed. |
+| `soracom.auth.profileName`         | Profile name (filename without `.json`) for your [soracom-cli](https://github.com/soracom/soracom-cli/) setup. Effective if **Soracom > Auth: Use Cli Configuration** (`soracom.auth.useCliConfiguration`) is enabled.                 |
+| `soracom.auth.authkey.id`          | SORACOM API AuthKey ID                                                                                                                                                                                                                 |
+| `soracom.auth.authkey.secret`      | SORACOM API AuthKey secret                                                                                                                                                                                                             |
+| `soracom.endpoint`                 | Specifies coverage for SORACOM                                                                                                                                                                                                         |
+| `soracom.napter.duration`          | Specifies default minutes for SORACOM Napter port mapping duration                                                                                                                                                                     |
+| `soracom.napter.port`              | Specifies default remote port number for SORACOM Napter port mapping                                                                                                                                                                   |
+| `soracom.napter.ssh.user`          | Specifies default remote user name for SORACOM Napter port mapping                                                                                                                                                                     |
+| `soracom.mask`                     | Controls mask of user identifiable information such as Operator ID, IMSI, IP address, port, etc.                                                                                                                                       |
 
 ## Supported Authentication Method
 
@@ -53,6 +78,7 @@ Authkey method is recommended for security reason. Email and password should wor
 ## Known Limitation
 
 - You cannot specify source IP addresses ranges.
+- No API sandbox support.
 
 ## TODOs or Ideas
 
@@ -60,7 +86,6 @@ Authkey method is recommended for security reason. Email and password should wor
 - display SIMs group by SIM group
 - display SIMs group by coverage
 - show Napter audit log
-- support [soracom/soracom-cli](https://github.com/soracom/soracom-cli/) configuration file (`~/.soracom/*.json`) and profiles
 
 ## References
 

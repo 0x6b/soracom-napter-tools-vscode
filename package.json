@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from VS Code.",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -44,15 +44,24 @@
     "configuration": {
       "title": "SORACOM Napter Tools",
       "properties": {
-        "soracom.authkey.id": {
-          "type": "string",
-          "default": "",
-          "markdownDescription": "SORACOM API AuthKey ID. [SORACOM API 利用ガイド](https://dev.soracom.io/jp/docs/api_guide/) (Japanese) or [Soracom API Usage Guide](https://developers.soracom.io/en/docs/tools/api-reference/) (English) to configure your AuthKey ID and Secret."
+        "soracom.auth.useCliConfiguration": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Use [soracom-cli](https://github.com/soracom/soracom-cli/) configuration files (`.soracom/*.json` under `$SORACOM_PROFILE_DIR` or `$HOME` directory) instead of AuthKey ID and Secret configured above. Restart required when changed."
         },
-        "soracom.authkey.secret": {
+        "soracom.auth.profileName": {
+          "type": "string",
+          "default": "default",
+          "markdownDescription": "Profile name (filename without `.json`) for your [soracom-cli](https://github.com/soracom/soracom-cli/) setup. Effective if **Soracom > Auth: Use Cli Configuration** (`soracom.auth.useCliConfiguration`) is enabled."
+        },
+        "soracom.auth.authkey.id": {
           "type": "string",
           "default": "",
-          "markdownDescription": "SORACOM API AuthKey Secret"
+          "markdownDescription": "[SORACOM API 利用ガイド](https://dev.soracom.io/jp/docs/api_guide/) (Japanese) or [Soracom API Usage Guide](https://developers.soracom.io/en/docs/tools/api-reference/) (English) to configure your AuthKey ID and Secret."
+        },
+        "soracom.auth.authkey.secret": {
+          "type": "string",
+          "default": ""
         },
         "soracom.endpoint": {
           "type": "string",
@@ -65,7 +74,7 @@
             "Japan coverage",
             "Global coverage"
           ],
-          "description": "Specifies coverage for SORACOM"
+          "description": "Specifies coverage for SORACOM."
         },
         "soracom.napter.duration": {
           "type": "number",
@@ -84,17 +93,17 @@
             "4 hours",
             "8 hours"
           ],
-          "description": "Specifies default minutes for SORACOM Napter port mapping duration"
+          "description": "Specifies default minutes for SORACOM Napter port mapping duration."
         },
         "soracom.napter.port": {
           "type": "number",
           "default": 22,
-          "description": "Specifies default remote port number for SORACOM Napter port mapping"
+          "description": "Specifies default remote port number for SORACOM Napter port mapping."
         },
         "soracom.napter.ssh.user": {
           "type": "string",
           "default": "pi",
-          "description": "Specifies default remote user name for SORACOM Napter port mapping"
+          "description": "Specifies default remote user name for SORACOM Napter port mapping."
         },
         "soracom.mask": {
           "type": "boolean",
