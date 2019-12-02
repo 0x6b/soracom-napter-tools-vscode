@@ -1,6 +1,6 @@
 # Contributing
 
-## Setup development prerequisites
+## Setup Development Prerequisites
 
 - Install [Visual Studio Code](https://code.visualstudio.com/)
 
@@ -8,7 +8,7 @@
 
 Before you do anything else, login on [GitHub](https://github.com/) and [fork](https://help.github.com/articles/fork-a-repo/) this repository
 
-## Clone your fork locally
+## Clone Your Fork Locally
 
 Install [Git](https://git-scm.com/) and clone your forked repository locally.
 
@@ -16,7 +16,7 @@ Install [Git](https://git-scm.com/) and clone your forked repository locally.
 $ git clone https://github.com/<your-account>/soracom-napter-tools-vscode.git
 ```
 
-## Play with your fork
+## Play with Your Fork
 
 The project uses [Semantic Versioning 2.0.0](http://semver.org/) but you don't have to update [`package.json`](package.json) as I will maintain release.
 
@@ -35,7 +35,7 @@ The project uses [Semantic Versioning 2.0.0](http://semver.org/) but you don't h
    $ code .
    ```
 
-## Open a pull request
+## Open a Pull Request
 
 1. Commit your changes locally, [rebase onto upstream/master](https://github.com/blog/2243-rebase-and-merge-pull-requests), then push the changes to GitHub
    ```sh
