@@ -1,17 +1,17 @@
 {
-  "name": "soracom-napter-tools",
+  "name": "soracom-napter-tools-vscode",
   "displayName": "SORACOM Napter Tools",
-  "description": "Manage SORACOM Napter port mappings from VS Code.",
-  "version": "0.10.2",
+  "description": "Manage SORACOM Napter port mappings from Visual Studio Code.",
+  "version": "0.11.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
-    "url": "https://github.com/soracom/soracom-napter-tools"
+    "url": "https://github.com/0x6b/soracom-napter-tools-vscode"
   },
   "bugs": {
-    "url": "https://github.com/soracom/soracom-napter-tools/issues"
+    "url": "https://github.com/0x6b/soracom-napter-tools-vscode/issues"
   },
-  "homepage": "https://soracom.jp",
+  "homepage": "https://github.com/0x6b/soracom-napter-tools-vscode",
   "engines": {
     "vscode": "^1.40.0"
   },
@@ -366,7 +366,7 @@
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js",
     "clean": "rimraf \"out/**/*.js\"",
-    "package": "vsce package"
+    "package": "vsce package --baseContentUrl https://github.com/0x6b/soracom-napter-tools-vscode --baseImagesUrl https://raw.githubusercontent.com/0x6b/soracom-napter-tools-vscode"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",

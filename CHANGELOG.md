@@ -1,9 +1,7 @@
 # Change Log
 
-All notable changes to the "soracom-napter-tools" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
 ## [Unreleased]
 
-- Initial release
+## 0.11.0 - 2019-12-02
+
+- Initial public release

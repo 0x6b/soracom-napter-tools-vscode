@@ -1,4 +1,4 @@
-# soracom-napter-tools
+# soracom-napter-tools-vscode
 
 This extension will assist you working with SORACOM Napter with Visual Studio Code.
 
@@ -26,14 +26,14 @@ You can see your _online_ SIMs and list, create, and delete Napter port mappings
 
 <img src="media/your-soracom-sims-view.png" width="50%"/>
 
-|                            Icon                             | Command                                                                 | Description                                                                                                                                                           |
-| :---------------------------------------------------------: | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="media/remote-light.png" width="24" height="24"/>  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                              |
-|                              -                              | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                 |
+|                            Icon                             | Command                                                                 | Description                                                                                                                                                               |
+| :---------------------------------------------------------: | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="media/remote-light.png" width="24" height="24"/>  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                                  |
+|                              -                              | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                     |
 | <img src="media/console-light.png" width="24" height="24"/> | SORACOM Napter: Connect via Visual Studio Code 'Remote - SSH' Extension | Open input box for the **Remote - SSH** extension while copying connection string (`ssh://user@host:port`) in the clipboard. You can paste it and press enter to connect. |
-| <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIMs List                                       | Refresh **Your SORACOM SIMs** view in the SORACOM Napter Tools view.                                                                                                  |
-|  <img src="media/globe-light.png" width="24" height="24"/>  | SORACOM Napter: Toggle Coverage                                         | Toggle coverage between Japan and Global.                                                                                                                             |
-| <img src="media/clippy-light.png" width="24" height="24"/>  | -                                                                       | Copy item value to the clipboard if applicable.                                                                                                                       |
+| <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIMs List                                       | Refresh **Your SORACOM SIMs** view in the SORACOM Napter Tools view.                                                                                                      |
+|  <img src="media/globe-light.png" width="24" height="24"/>  | SORACOM Napter: Toggle Coverage                                         | Toggle coverage between Japan and Global.                                                                                                                                 |
+| <img src="media/clippy-light.png" width="24" height="24"/>  | -                                                                       | Copy item value to the clipboard if applicable.                                                                                                                           |
 
 ### SIM Detail View
 
@@ -74,7 +74,7 @@ This extension contributes the following settings.
 
 ## Supported Authentication Method
 
-Authkey method is recommended for security reason. Email and password should work but not tested.
+Authkey method is recommended for security reason. Email and password should work (except you configured multi-factor authentication) but not tested.
 
 | User type    | Email and password | AuthKey ID and secret |
 | ------------ | ------------------ | --------------------- |
@@ -85,13 +85,13 @@ Authkey method is recommended for security reason. Email and password should wor
 
 - You cannot specify source IP addresses ranges.
 - No API sandbox support.
+- No test.
 
 ## TODOs or Ideas
 
-- implement i18n
-- display SIMs group by SIM group
-- display SIMs group by coverage
-- show Napter audit log
+- implement i18n?
+- display SIMs group by SIM group?
+- display SIMs group by coverage?
 
 ## References
 
