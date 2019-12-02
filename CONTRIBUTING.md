@@ -13,7 +13,7 @@ Before you do anything else, login on [GitHub](https://github.com/) and [fork](h
 Install [Git](https://git-scm.com/) and clone your forked repository locally.
 
 ```sh
-$ git clone https://github.com/<your-account>/soracom-napter-tools.git
+$ git clone https://github.com/<your-account>/soracom-napter-tools-vscode.git
 ```
 
 ## Play with your fork
