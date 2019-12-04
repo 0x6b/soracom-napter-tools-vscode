@@ -18,11 +18,11 @@ You can open **SORACOM Napter Tools** view which you can see list of your SIMs a
 
 - Click the icon <img src="media/SISS024-light.png" width="24" height="24"> in the Activity Bar
 - Open Command Palette (<kbd>⇧⌘P</kbd>) then type <kbd>Show SORACOM Napter Tools</kbd>
-- Default shortcut key (<kbd>⌃⌘N</kbd>)
+- Default shortcut key (<kbd>⌃⇧N</kbd>)
 
 ### Your SORACOM SIMs View
 
-You can see your _online_ SIMs and list, create, and delete Napter port mappings.
+You can see your _online_ SIMs and list, create, and delete Napter port mappings. Use icon described below or right click view items to find available actions.
 
 <img src="media/your-soracom-sims-view.png" width="50%"/>
 
