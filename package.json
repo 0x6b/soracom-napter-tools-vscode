@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools-vscode",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from Visual Studio Code.",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -104,6 +104,11 @@
           "type": "string",
           "default": "pi",
           "description": "Specifies default remote user name for SORACOM Napter port mapping."
+        },
+        "soracom.napter.ssh.autoConnection": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Connect via **Remote - SSH** extension automatically after creating port mapping."
         },
         "soracom.mask": {
           "type": "boolean",

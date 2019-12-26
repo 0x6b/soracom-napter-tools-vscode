@@ -164,13 +164,20 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   private _connect(endpoint: string): void {
     const user = getConfiguration("napter.ssh.user");
-    window.setStatusBarMessage(
-      "SSH connection information is copied to the clipboard. Paste it to the input box and hit enter to connect.",
-      5 * 1000
-    );
-    env.clipboard
-      .writeText(`ssh://${user}@${endpoint}`)
-      .then(() => commands.executeCommand("opensshremotes.openEmptyWindow"));
+    const autoConnection = getConfiguration("napter.ssh.autoConnection");
+    if (autoConnection) {
+      commands.executeCommand("vscode.newWindow", {
+        remoteAuthority: `ssh-remote+ssh://${user}@${endpoint}`
+      });
+    } else {
+      window.setStatusBarMessage(
+        "SSH connection information is copied to the clipboard. Paste it to the input box and hit enter to connect.",
+        5 * 1000
+      );
+      env.clipboard
+        .writeText(`ssh://${user}@${endpoint}`)
+        .then(() => commands.executeCommand("opensshremotes.openEmptyWindow"));
+    }
   }
 
   private pick<T>(collection: T[], map: Function, onFulfilled: Function, onRejected: () => void): void {
