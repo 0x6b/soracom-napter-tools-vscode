@@ -250,9 +250,9 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private transformToPortMappingNodes(portMappings: PortMapping[], imsi: string): Node[] {
     return portMappings
       .filter(({ destination }) => destination.imsi === imsi)
-      .map(({ endpoint }) => ({
-        description: this.masked(endpoint, /\w/gi, "x"),
-        resource: endpoint
+      .map(({ hostname, port }) => ({
+        description: this.masked(`${hostname}:${port}`, /\w/gi, "x"),
+        resource: `${hostname}:${port}`
       }))
       .map(({ description, resource }) => ({
         label: "Port Mapping",
@@ -267,7 +267,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   private transformToPortMappingDetailNodes(portMappings: PortMapping[], target: string): Node[] {
     const result = portMappings
-      .filter(({ endpoint }) => endpoint === target)
+      .filter(({ hostname, port }) => `${hostname}:${port}` === target)
       .map(
         ({
           hostname,
