@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+## 0.13.1 - 2020-01-08
+
+- use host name instead of IP address for new connection
+
 ## 0.13.0 - 2020-01-07
 
-- use host name instead of IP address for connection for `.ssh/config` friendliness.
+- use host name instead of IP address for connection for `.ssh/config` friendliness
 
 ## 0.12.0 - 2019-12-26
 
