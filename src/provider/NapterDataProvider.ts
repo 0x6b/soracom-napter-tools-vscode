@@ -143,14 +143,14 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   private _createPortMapping(imsi: string): void {
-    const port = getConfiguration("napter.port") as number;
+    const targetPort = getConfiguration("napter.port") as number;
     const duration = (getConfiguration("napter.duration") as number) * 60;
 
     this.model
-      .createPortMapping(imsi, port, duration)
-      .then(result => {
+      .createPortMapping(imsi, targetPort, duration)
+      .then(({ hostname, port }) => {
         this.refresh();
-        this._connect(result.endpoint);
+        this._connect(`${hostname}:${port}`);
       })
       .catch(err => window.showErrorMessage(err.toString()));
   }
