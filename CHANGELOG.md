@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## 0.13.2 - 2020-01-08
+
+- fix deletePortMapping failure
+
 ## 0.13.1 - 2020-01-08
 
 - use host name instead of IP address for new connection

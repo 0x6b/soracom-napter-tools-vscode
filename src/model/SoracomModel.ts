@@ -61,7 +61,7 @@ export class SoracomModel {
   public async deletePortMapping(endpoint: string): Promise<string> {
     const { status, statusText } = await this.client.callApi({
       method: "DELETE",
-      path: `/v1/port_mappings/${endpoint.replace(/:/, "/")}`
+      path: `/v1/port_mappings/${endpoint.replace(".napter.soracom.io", "").replace(/-/g, ".").replace(/:/, "/")}`
     });
     if (status !== 204) {
       throw new Error(statusText);
