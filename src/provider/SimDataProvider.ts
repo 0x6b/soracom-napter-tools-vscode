@@ -196,17 +196,21 @@ export class SimDataProvider implements TreeDataProvider<Node> {
     return logs.map(
       ({
         createdAt,
-        direction: { destinationIPAddress, destinationPort, sourceIPAddress, sourcePort },
+        direction,
         imsi,
         type
       }) => {
+        let dir = "";
+        if (direction != null) {
+          const { sourceIPAddress, sourcePort, destinationIPAddress, destinationPort } = direction;
+          dir = ` - ${sourceIPAddress}:${sourcePort} > ${destinationIPAddress}:${destinationPort}`;
+        }
         const d = toDate(createdAt);
-        const dir = `${sourceIPAddress}:${sourcePort} > ${destinationIPAddress}:${destinationPort}`;
         return {
           label: type,
-          description: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")} - ${this.masked(dir, /\d/g, "x")}`,
-          tooltip: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")} - ${this.masked(dir, /\d/g, "x")}`,
-          resource: `${type}: ${d} - ${imsi} - ${dir}`,
+          description: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")}${this.masked(dir, /\d/g, "x")}`,
+          tooltip: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")}${this.masked(dir, /\d/g, "x")}`,
+          resource: `${type}: ${d} - ${imsi}${dir}`,
           collapsibleState: TreeItemCollapsibleState.None,
           contextValue: ContextValue.SIM_AUDIT_LOG_ENTRY
         };
