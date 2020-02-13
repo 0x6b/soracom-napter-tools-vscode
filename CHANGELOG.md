@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## 0.14.0 - 2020-02-13
+
+- support new Napter audit log types, `CREATED` / `DELETED` / `EXPIRED`. See [SORACOM Napter 監査ログに新しいログタイプが追加されました – SORACOM エンジニアブログ](https://blog.soracom.jp/blog/2020/02/13/soracom-napters-new-audit-log-types-are-out-now/) for detail
+
 ## 0.13.2 - 2020-01-08
 
 - fix deletePortMapping failure
@@ -20,4 +24,4 @@
 
 ## 0.11.0 - 2019-12-02
 
-- Initial public release
+- initial public release
