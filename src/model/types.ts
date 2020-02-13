@@ -72,7 +72,7 @@ export interface AuditLog {
   operatorId: string;
   imsi: string;
   connectionId: string;
-  type: "ACCESS" | "CONNECTED" | "CLOSED" | "DENIED" | "REFUSED";
+  type: "ACCESS" | "CLOSED" | "CONNECTED" | "CREATED" | "DELETED" | "DENIED" | "EXPIRED" | "REFUSED";
   direction: {
     destinationIPAddress: string;
     destinationPort: number;
