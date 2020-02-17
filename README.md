@@ -20,9 +20,9 @@ You can open **SORACOM Napter Tools** view which you can see list of your SIMs a
 - Open Command Palette (<kbd>⇧⌘P</kbd>) then type <kbd>Show SORACOM Napter Tools</kbd>
 - Default shortcut key (<kbd>⌃⇧N</kbd>)
 
-### Your SORACOM SIMs View
+### Active SORACOM SIMs View
 
-You can see your _online_ SIMs and list, create, and delete Napter port mappings. Use icon described below or right click view items to find available actions.
+You can see your _active_ SIMs and list, create, and delete Napter port mappings. Use icon described below or right click view items to find available actions.
 
 <img src="media/your-soracom-sims-view.png" width="50%"/>
 
@@ -31,13 +31,13 @@ You can see your _online_ SIMs and list, create, and delete Napter port mappings
 | <img src="media/remote-light.png" width="24" height="24"/>  | SORACOM Napter: Create New Port Mapping                                 | Create new port mapping.                                                                                                                                                  |
 |                              -                              | SORACOM Napter: Delete Port Mapping                                     | Delete existing port mapping. Also you can delete port mapping from right click menu.                                                                                     |
 | <img src="media/console-light.png" width="24" height="24"/> | SORACOM Napter: Connect via Visual Studio Code 'Remote - SSH' Extension | <ul><li>Open new window with connecting the port mapping if you set `soracom.napter.ssh.autoConnection` to `true`.</li><li>Otherwise open input box for the **Remote - SSH** extension while copying connection string (`ssh://user@host:port`) in the clipboard. You can paste it and press enter to connect.</li></ul> |
-| <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIMs List                                       | Refresh **Your SORACOM SIMs** view in the SORACOM Napter Tools view.                                                                                                      |
+| <img src="media/refresh-light.png" width="24" height="24"/> | SORACOM Napter: Refresh SIMs List                                       | Refresh **Active SORACOM SIMs** view in the SORACOM Napter Tools view.                                                                                                      |
 |  <img src="media/globe-light.png" width="24" height="24"/>  | SORACOM Napter: Toggle Coverage                                         | Toggle coverage between Japan and Global.                                                                                                                                 |
 | <img src="media/clippy-light.png" width="24" height="24"/>  | -                                                                       | Copy item value to the clipboard if applicable.                                                                                                                           |
 
 ### SIM Detail View
 
-When you select a SIM at Your SORACOM SIMs view, detail of the SIM will be displayed.
+When you select a SIM at Active SORACOM SIMs view, detail of the SIM will be displayed.
 
 <img src="media/sim-detail-view.png" width="50%"/>
 

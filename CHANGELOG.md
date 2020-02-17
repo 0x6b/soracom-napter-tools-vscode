@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## 0.14.1 - 2020-02-17
+
+- rename view title to **Active SORACOM SIMs** from **Your SORACOM SIMs** to avoid confusion
+
 ## 0.14.0 - 2020-02-13
 
 - support new Napter audit log types, `CREATED` / `DELETED` / `EXPIRED`. See [SORACOM Napter 監査ログに新しいログタイプが追加されました – SORACOM エンジニアブログ](https://blog.soracom.jp/blog/2020/02/13/soracom-napters-new-audit-log-types-are-out-now/) for detail
