@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools-vscode",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from Visual Studio Code.",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -130,7 +130,7 @@
       "soracomNapterTools": [
         {
           "id": "napterDataProvider",
-          "name": "Your SORACOM SIMs"
+          "name": "Active SORACOM SIMs"
         },
         {
           "id": "simDataProvider",
