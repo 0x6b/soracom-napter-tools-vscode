@@ -130,15 +130,15 @@ function getConfiguration(section: string) {
 function getProfiles(): SoracomConfiguration[] {
   const useCliConfiguration = getConfiguration("auth.useCliConfiguration") as boolean;
   if (useCliConfiguration) {
-    return readdirSync(join(CONFIG_DIR))
-      .map(
-        p =>
-          Object.assign(
-            { name: p.replace(/\.json$/, "") },
-            JSON.parse(readFileSync(join(CONFIG_DIR, p), "utf8"))
-          ) as SoracomConfiguration
-      )
-      .filter(p => !p.sandbox);
+    return readdirSync(join(CONFIG_DIR), { withFileTypes: true })
+      .filter((d) => d.isFile())
+      .map((f) => {
+        return Object.assign(
+          { name: f.name.replace(/\.json$/, "") },
+          JSON.parse(readFileSync(join(CONFIG_DIR, f.name), "utf8"))
+        ) as SoracomConfiguration;
+      })
+      .filter((p) => !p.sandbox);
   }
   return [];
 }
