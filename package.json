@@ -371,7 +371,8 @@
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js",
     "clean": "rimraf \"out/**/*.js\"",
-    "package": "vsce package --baseContentUrl https://github.com/0x6b/soracom-napter-tools-vscode --baseImagesUrl https://raw.githubusercontent.com/0x6b/soracom-napter-tools-vscode"
+    "package": "vsce package --baseContentUrl https://github.com/0x6b/soracom-napter-tools-vscode --baseImagesUrl https://raw.githubusercontent.com/0x6b/soracom-napter-tools-vscode",
+    "format": "prettier --write 'src/**/*.ts'"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
