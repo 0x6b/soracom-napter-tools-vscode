@@ -1,6 +1,6 @@
 export enum ApiEndpoint {
   jp = "https://api.soracom.io",
-  g = "https://g.api.soracom.io"
+  g = "https://g.api.soracom.io",
 }
 
 export interface SoracomConfiguration {

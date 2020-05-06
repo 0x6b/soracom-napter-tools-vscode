@@ -10,7 +10,7 @@ import {
   TreeItem,
   TreeItemCollapsibleState,
   window,
-  workspace
+  workspace,
 } from "vscode";
 import { SoracomModel } from "../model/SoracomModel";
 import { PortMapping, Subscriber, User } from "../model/types";
@@ -23,11 +23,11 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   private mediaRoot = join(__filename, "..", "..", "..", "media");
   private subscriberIconPath = {
     light: join(this.mediaRoot, "SIS0006-light.svg"),
-    dark: join(this.mediaRoot, "SIS0006-dark.svg")
+    dark: join(this.mediaRoot, "SIS0006-dark.svg"),
   };
   private portMappingIconPath = {
     light: join(this.mediaRoot, "SISS024-light.svg"),
-    dark: join(this.mediaRoot, "SISS024-dark.svg")
+    dark: join(this.mediaRoot, "SISS024-dark.svg"),
   };
 
   private statusBarItem: StatusBarItem;
@@ -52,7 +52,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
     this.statusBarItem.tooltip = "SORACOM Operator. Click to open User Console";
     this.statusBarItem.command = "openUserConsole";
 
-    this.onTreeRefreshed(e => {
+    this.onTreeRefreshed((e) => {
       this.statusBarItem.text = `$(info) ${this.masked(e.userName, /\w/gi, "x")}@${this.masked(
         e.operatorId,
         /\d/g,
@@ -78,7 +78,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   createPortMapping(node: Node | undefined): void {
     if (node === undefined) {
-      this.model.listSubscribers().then(subscribers => {
+      this.model.listSubscribers().then((subscribers) => {
         this.pick(
           subscribers,
           (s: Subscriber) => {
@@ -98,7 +98,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   deletePortMapping(node: Node): void {
     if (node === undefined) {
-      this.model.listPortMappings().then(portMappings => {
+      this.model.listPortMappings().then((portMappings) => {
         this.pick(
           portMappings,
           (p: PortMapping) => p.endpoint,
@@ -115,13 +115,13 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
 
   connect(node: Node): void {
     if (node === undefined) {
-      this.model.listPortMappings().then(portMappings => {
+      this.model.listPortMappings().then((portMappings) => {
         this.pick(
           portMappings,
           (p: PortMapping) => p.endpoint,
           (endpoint: string) => this._connect(endpoint),
           () =>
-            window.showInformationMessage("No port mapping to connect. Create a new?", "Create").then(clicked => {
+            window.showInformationMessage("No port mapping to connect. Create a new?", "Create").then((clicked) => {
               if (clicked === "Create") {
                 this.createPortMapping(undefined);
               }
@@ -152,14 +152,14 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
         this.refresh();
         this._connect(`${hostname}:${port}`);
       })
-      .catch(err => window.showErrorMessage(err.toString()));
+      .catch((err) => window.showErrorMessage(err.toString()));
   }
 
   private _deletePortMapping(endpoint: string): void {
     this.model
       .deletePortMapping(endpoint)
       .then(() => this.refresh())
-      .catch(err => window.showErrorMessage(err.toString()));
+      .catch((err) => window.showErrorMessage(err.toString()));
   }
 
   private _connect(endpoint: string): void {
@@ -167,7 +167,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
     const autoConnection = getConfiguration("napter.ssh.autoConnection");
     if (autoConnection) {
       commands.executeCommand("vscode.newWindow", {
-        remoteAuthority: `ssh-remote+ssh://${user}@${endpoint}`
+        remoteAuthority: `ssh-remote+ssh://${user}@${endpoint}`,
       });
     } else {
       window.setStatusBarMessage(
@@ -181,9 +181,9 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   private pick<T>(collection: T[], map: Function, onFulfilled: Function, onRejected: () => void): void {
-    const candidates = collection.map(p => map(p));
+    const candidates = collection.map((p) => map(p));
     if (candidates.length > 0) {
-      window.showQuickPick(candidates).then(pick => {
+      window.showQuickPick(candidates).then((pick) => {
         if (pick === undefined) {
           onRejected();
         } else {
@@ -231,7 +231,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       .map(({ imsi, name }) => ({
         label: this.masked(imsi, /[\d]{12}$/, "000000000000"),
         description: this.masked(name, /\p{Letter}/giu, "x"),
-        resource: imsi
+        resource: imsi,
       }))
       .map(({ label, description, resource }) => {
         return {
@@ -242,7 +242,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
           collapsibleState: TreeItemCollapsibleState.Collapsed,
           contextValue: ContextValue.IMSI,
           iconPath: this.subscriberIconPath,
-          command: { title: "click", command: "napterDataProvider.fireSubscriberChangeEvent", arguments: [resource] }
+          command: { title: "click", command: "napterDataProvider.fireSubscriberChangeEvent", arguments: [resource] },
         };
       });
   }
@@ -252,7 +252,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
       .filter(({ destination }) => destination.imsi === imsi)
       .map(({ hostname, port }) => ({
         description: this.masked(`${hostname}:${port}`, /\w/gi, "x"),
-        resource: `${hostname}:${port}`
+        resource: `${hostname}:${port}`,
       }))
       .map(({ description, resource }) => ({
         label: "Port Mapping",
@@ -261,7 +261,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
         resource,
         collapsibleState: TreeItemCollapsibleState.Expanded,
         contextValue: ContextValue.PORT_MAPPING,
-        iconPath: this.portMappingIconPath
+        iconPath: this.portMappingIconPath,
       }));
   }
 
@@ -278,7 +278,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
           source: { ipRanges },
           destination: { port: destPort },
           createdTime,
-          expiredTime
+          expiredTime,
         }) => ({
           presentation: {
             hostname: this.masked(hostname, /\d/g, "x"),
@@ -286,10 +286,10 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             port: this.masked(port, /\d/g, "x"),
             duration: `${duration / 60 / 60} hours`,
             tlsRequired: `${tlsRequired}`,
-            ipRanges: ipRanges.map(ipRange => this.masked(ipRange, /\d/g, "x")).join(", "),
+            ipRanges: ipRanges.map((ipRange) => this.masked(ipRange, /\d/g, "x")).join(", "),
             destPort: this.masked(destPort, /\d/g, "x"),
             createdTime: toDate(createdTime),
-            expiredTime: toDate(expiredTime)
+            expiredTime: toDate(expiredTime),
           },
           resource: {
             hostname,
@@ -300,8 +300,8 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             ipRanges,
             destPort,
             createdTime,
-            expiredTime
-          }
+            expiredTime,
+          },
         })
       )
       .map(({ presentation, resource }) => {
@@ -312,7 +312,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.hostname,
             resource: resource.hostname,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "IP Address",
@@ -320,7 +320,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.ipAddress,
             resource: resource.ipAddress,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "Port",
@@ -328,7 +328,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.port,
             resource: resource.port,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "Duration",
@@ -336,7 +336,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.duration,
             resource: resource.duration,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "TLS Required",
@@ -344,7 +344,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.tlsRequired,
             resource: resource.tlsRequired,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "Destination Port",
@@ -352,7 +352,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.destPort,
             resource: resource.destPort,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "Source IP Addresses Ranges",
@@ -360,7 +360,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.ipRanges,
             resource: resource.ipRanges,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.PORT_MAPPING_ENTRY
+            contextValue: ContextValue.PORT_MAPPING_ENTRY,
           },
           {
             label: "Created",
@@ -368,7 +368,7 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.createdTime,
             resource: resource.createdTime,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.NONE
+            contextValue: ContextValue.NONE,
           },
           {
             label: "Expired",
@@ -376,8 +376,8 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
             tooltip: presentation.expiredTime,
             resource: resource.expiredTime,
             collapsibleState: TreeItemCollapsibleState.None,
-            contextValue: ContextValue.NONE
-          }
+            contextValue: ContextValue.NONE,
+          },
         ];
       });
     return result[0] as Node[];
