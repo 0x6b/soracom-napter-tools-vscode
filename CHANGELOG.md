@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## 0.15.0 - 2020-05-06
+
+- ignore directories in the soracom configuration folder
+
 ## 0.14.1 - 2020-02-17
 
 - rename view title to **Active SORACOM SIMs** from **Your SORACOM SIMs** to avoid confusion

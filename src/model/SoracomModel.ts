@@ -8,7 +8,7 @@ export class SoracomModel {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: "/v1/subscribers",
-      query: { status_filter: "active", limit: "1000" }
+      query: { status_filter: "active", limit: "1000" },
     });
     if (status !== 200) {
       throw new Error(statusText);
@@ -19,7 +19,7 @@ export class SoracomModel {
   public async getSubscriber(imsi: string): Promise<Subscriber> {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
-      path: `/v1/subscribers/${imsi}`
+      path: `/v1/subscribers/${imsi}`,
     });
     if (status !== 200) {
       throw new Error(statusText);
@@ -31,7 +31,7 @@ export class SoracomModel {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: "/v1/port_mappings",
-      query: { limit: "1000" }
+      query: { limit: "1000" },
     });
     if (status !== 200) {
       throw new Error(statusText);
@@ -46,11 +46,11 @@ export class SoracomModel {
       body: {
         destination: {
           imsi,
-          port
+          port,
         },
         duration,
-        tlsRequired: false
-      }
+        tlsRequired: false,
+      },
     });
     if (status !== 201) {
       throw new Error(statusText);
@@ -61,7 +61,7 @@ export class SoracomModel {
   public async deletePortMapping(endpoint: string): Promise<string> {
     const { status, statusText } = await this.client.callApi({
       method: "DELETE",
-      path: `/v1/port_mappings/${endpoint.replace(".napter.soracom.io", "").replace(/-/g, ".").replace(/:/, "/")}`
+      path: `/v1/port_mappings/${endpoint.replace(".napter.soracom.io", "").replace(/-/g, ".").replace(/:/, "/")}`,
     });
     if (status !== 204) {
       throw new Error(statusText);
@@ -73,7 +73,7 @@ export class SoracomModel {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: `/v1/subscribers/${imsi}/events/sessions`,
-      query: { limit: "10" }
+      query: { limit: "10" },
     });
     if (status !== 200) {
       throw new Error(statusText);
@@ -85,7 +85,7 @@ export class SoracomModel {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
       path: "/v1/audit_logs/napter",
-      query: { resource_type: "Subscriber", resource_id: imsi, limit: "10" }
+      query: { resource_type: "Subscriber", resource_id: imsi, limit: "10" },
     });
     if (status !== 200) {
       throw new Error(statusText);
@@ -96,7 +96,7 @@ export class SoracomModel {
   public getUserInfo(): User {
     return {
       operatorId: this.client.operatorId,
-      userName: this.client.userName
+      userName: this.client.userName,
     };
   }
 }

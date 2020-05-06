@@ -18,7 +18,7 @@ export class SoracomClient {
     this._authKeySecret = authKeySecret;
     this._endpoint = endpoint;
     this.axios = axios.create({
-      headers: { "user-agent": "soracom-napter-tools-vscode", accept: "application/json" }
+      headers: { "user-agent": "soracom-napter-tools-vscode", accept: "application/json" },
     });
     this.axios.defaults.headers.post["content-type"] = "application/json";
   }
@@ -29,8 +29,8 @@ export class SoracomClient {
       path: "/v1/auth",
       body: {
         authKeyId: this._authKeyId,
-        authKey: this._authKeySecret
-      }
+        authKey: this._authKeySecret,
+      },
     });
     if (status === 200) {
       this.apiKey = data.apiKey;
@@ -55,7 +55,7 @@ export class SoracomClient {
     const headers = Object.assign(
       {
         "x-soracom-api-key": this.apiKey,
-        "x-soracom-token": this.token
+        "x-soracom-token": this.token,
       },
       params.headers
     );
@@ -73,7 +73,7 @@ export class SoracomClient {
       url,
       headers,
       method: params.method,
-      data: params.body
+      data: params.body,
     });
   }
 

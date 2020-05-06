@@ -74,7 +74,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
     msisdn,
     subscription,
     ipAddress,
-    speedClass
+    speedClass,
   }: Subscriber): Node[] {
     return [
       {
@@ -83,7 +83,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: this.masked(imsi, /[\d]{12}$/, "000000000000"),
         resource: imsi,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "Name",
@@ -91,7 +91,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: tags.name === undefined ? "no name" : this.masked(tags.name, /\p{Letter}/giu, "x"),
         resource: tags.name === undefined ? "no name" : tags.name,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "Group ID",
@@ -99,7 +99,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: groupId === undefined ? "no group" : groupId,
         resource: groupId === undefined ? "" : groupId,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY_GROUP
+        contextValue: ContextValue.SIM_DETAIL_ENTRY_GROUP,
       },
       {
         label: "Plan",
@@ -107,7 +107,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: subscription,
         resource: subscription,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "Module Type",
@@ -115,7 +115,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: moduleType,
         resource: moduleType,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "Speed",
@@ -123,7 +123,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: speedClass,
         resource: speedClass,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "IMEI",
@@ -131,7 +131,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: this.masked(sessionStatus.imei, /\d/g, "x"),
         resource: sessionStatus.imei,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "MSISDN",
@@ -139,7 +139,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: this.masked(msisdn, /\d/g, "x"),
         resource: msisdn,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "Session",
@@ -147,7 +147,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: sessionStatus.online ? "Online" : "Offline",
         resource: sessionStatus.online ? "Online" : "Offline",
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "IP Address",
@@ -155,28 +155,28 @@ export class SimDataProvider implements TreeDataProvider<Node> {
         tooltip: this.masked(ipAddress, /\d/g, "x"),
         resource: ipAddress,
         collapsibleState: TreeItemCollapsibleState.None,
-        contextValue: ContextValue.SIM_DETAIL_ENTRY
+        contextValue: ContextValue.SIM_DETAIL_ENTRY,
       },
       {
         label: "Last 10 Session Events",
         description: "",
         resource: imsi,
         collapsibleState: TreeItemCollapsibleState.Collapsed,
-        contextValue: ContextValue.SIM_SESSION_STATUS
+        contextValue: ContextValue.SIM_SESSION_STATUS,
       },
       {
         label: "Last 10 Audit Logs",
         description: "",
         resource: imsi,
         collapsibleState: TreeItemCollapsibleState.Collapsed,
-        contextValue: ContextValue.SIM_AUDIT_LOG
-      }
+        contextValue: ContextValue.SIM_AUDIT_LOG,
+      },
     ];
   }
 
   private transformToSessionEventsNodes(events: SessionEvent[]): Node[] {
     return events
-      .map(e => (typeof e.cell === "undefined" ? Object.assign(e, { cell: { radioType: "unknown" } }) : e))
+      .map((e) => (typeof e.cell === "undefined" ? Object.assign(e, { cell: { radioType: "unknown" } }) : e))
       .map(({ cell: { radioType }, event, imei, time }) => {
         const e = event.toUpperCase();
         const d = toDate(time);
@@ -187,35 +187,28 @@ export class SimDataProvider implements TreeDataProvider<Node> {
           tooltip: `${e}: ${d} - ${this.masked(imei, /\d/g, "x")} - ${r}`,
           resource: `${e}: ${d} - ${imei} - ${r}`,
           collapsibleState: TreeItemCollapsibleState.None,
-          contextValue: ContextValue.SIM_SESSION_EVENT
+          contextValue: ContextValue.SIM_SESSION_EVENT,
         };
       });
   }
 
   private transformToAuditLogsNodes(logs: AuditLog[]): Node[] {
-    return logs.map(
-      ({
-        createdAt,
-        direction,
-        imsi,
-        type
-      }) => {
-        let dir = "";
-        if (direction != null) {
-          const { sourceIPAddress, sourcePort, destinationIPAddress, destinationPort } = direction;
-          dir = ` - ${sourceIPAddress}:${sourcePort} > ${destinationIPAddress}:${destinationPort}`;
-        }
-        const d = toDate(createdAt);
-        return {
-          label: type,
-          description: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")}${this.masked(dir, /\d/g, "x")}`,
-          tooltip: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")}${this.masked(dir, /\d/g, "x")}`,
-          resource: `${type}: ${d} - ${imsi}${dir}`,
-          collapsibleState: TreeItemCollapsibleState.None,
-          contextValue: ContextValue.SIM_AUDIT_LOG_ENTRY
-        };
+    return logs.map(({ createdAt, direction, imsi, type }) => {
+      let dir = "";
+      if (direction != null) {
+        const { sourceIPAddress, sourcePort, destinationIPAddress, destinationPort } = direction;
+        dir = ` - ${sourceIPAddress}:${sourcePort} > ${destinationIPAddress}:${destinationPort}`;
       }
-    );
+      const d = toDate(createdAt);
+      return {
+        label: type,
+        description: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")}${this.masked(dir, /\d/g, "x")}`,
+        tooltip: `${d} - ${this.masked(imsi, /[\d]{12}$/, "000000000000")}${this.masked(dir, /\d/g, "x")}`,
+        resource: `${type}: ${d} - ${imsi}${dir}`,
+        collapsibleState: TreeItemCollapsibleState.None,
+        contextValue: ContextValue.SIM_AUDIT_LOG_ENTRY,
+      };
+    });
   }
 
   refresh(): void {

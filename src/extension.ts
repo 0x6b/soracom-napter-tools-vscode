@@ -52,23 +52,27 @@ export function activate(context: ExtensionContext) {
           break;
       }
     });
-    commands.registerCommand("napterDataProvider.createPortMapping", arg => napterDataProvider.createPortMapping(arg));
-    commands.registerCommand("napterDataProvider.deletePortMapping", arg => napterDataProvider.deletePortMapping(arg));
-    commands.registerCommand("napterDataProvider.connect", arg => napterDataProvider.connect(arg));
-    commands.registerCommand("napterDataProvider.copy", arg => napterDataProvider.copy(arg));
-    commands.registerCommand("napterDataProvider.copyAsSshCommand", arg => napterDataProvider.copyAsSshCommand(arg));
+    commands.registerCommand("napterDataProvider.createPortMapping", (arg) =>
+      napterDataProvider.createPortMapping(arg)
+    );
+    commands.registerCommand("napterDataProvider.deletePortMapping", (arg) =>
+      napterDataProvider.deletePortMapping(arg)
+    );
+    commands.registerCommand("napterDataProvider.connect", (arg) => napterDataProvider.connect(arg));
+    commands.registerCommand("napterDataProvider.copy", (arg) => napterDataProvider.copy(arg));
+    commands.registerCommand("napterDataProvider.copyAsSshCommand", (arg) => napterDataProvider.copyAsSshCommand(arg));
     commands.registerCommand("openUserConsole", () => env.openExternal(Uri.parse("https://console.soracom.io")));
 
-    commands.registerCommand("simDataProvider.copy", arg => simDataProvider.copy(arg));
-    commands.registerCommand("simDataProvider.openGroupExternal", arg => simDataProvider.openGroupExternal(arg));
+    commands.registerCommand("simDataProvider.copy", (arg) => simDataProvider.copy(arg));
+    commands.registerCommand("simDataProvider.openGroupExternal", (arg) => simDataProvider.openGroupExternal(arg));
     commands.registerCommand("simDataProvider.refresh", () => simDataProvider.refresh());
 
-    napterDataProvider.addSubscriberChangeEventListener(e => simDataProvider.updateSelected(e));
-    commands.registerCommand("napterDataProvider.fireSubscriberChangeEvent", arg =>
+    napterDataProvider.addSubscriberChangeEventListener((e) => simDataProvider.updateSelected(e));
+    commands.registerCommand("napterDataProvider.fireSubscriberChangeEvent", (arg) =>
       napterDataProvider.fireSubscriberChangeEvent(arg)
     );
 
-    workspace.onDidChangeConfiguration(e => {
+    workspace.onDidChangeConfiguration((e) => {
       if (isAffected(e, "auth.authkey.id") && (!getConfiguration("auth.useCliConfiguration") as boolean)) {
         client.authKeyId = getConfiguration("auth.authkey.id") as string;
         napterDataProvider.refresh();
@@ -104,7 +108,7 @@ export function activate(context: ExtensionContext) {
   } else {
     window
       .showInformationMessage("Configure SORACOM API credentials in the preferences", "Open Preferences")
-      .then(clicked => {
+      .then((clicked) => {
         if (clicked === "Open Preferences") {
           commands.executeCommand("workbench.action.openSettings", "SORACOM Auth");
         }
@@ -126,22 +130,22 @@ function getConfiguration(section: string) {
 function getProfiles(): SoracomConfiguration[] {
   const useCliConfiguration = getConfiguration("auth.useCliConfiguration") as boolean;
   if (useCliConfiguration) {
-    return readdirSync(join(CONFIG_DIR))
-      .map(
-        p =>
-          Object.assign(
-            { name: p.replace(/\.json$/, "") },
-            JSON.parse(readFileSync(join(CONFIG_DIR, p), "utf8"))
-          ) as SoracomConfiguration
-      )
-      .filter(p => !p.sandbox);
+    return readdirSync(join(CONFIG_DIR), { withFileTypes: true })
+      .filter((d) => d.isFile())
+      .map((f) => {
+        return Object.assign(
+          { name: f.name.replace(/\.json$/, "") },
+          JSON.parse(readFileSync(join(CONFIG_DIR, f.name), "utf8"))
+        ) as SoracomConfiguration;
+      })
+      .filter((p) => !p.sandbox);
   }
   return [];
 }
 
 function getProfileFor(profiles: SoracomConfiguration[], name: string): SoracomConfiguration | null {
   if (profiles.length > 1) {
-    const candidate = profiles.filter(p => p.name === name);
+    const candidate = profiles.filter((p) => p.name === name);
     if (candidate.length > 0) {
       return candidate[0];
     }
