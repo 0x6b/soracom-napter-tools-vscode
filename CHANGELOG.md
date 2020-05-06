@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## 0.15.1 - 2020-05-06
+
+- update documentation on tested vscode version to v1.44.2 and Remote - SSH extension v0.51.0
+
 ## 0.15.0 - 2020-05-06
 
 - ignore directories in the soracom configuration folder
