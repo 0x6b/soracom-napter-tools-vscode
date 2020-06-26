@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.15.3 - 2020-06-28
+
+- update documentation on tested vscode version to v1.46.1
+
 ## 0.15.2 - 2020-06-27
 
 - fix SORACOM profile selection
