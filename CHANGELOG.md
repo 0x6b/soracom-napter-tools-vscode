@@ -1,6 +1,8 @@
 # Change Log
 
-## [Unreleased]
+## 0.15.2 - 2020-06-27
+
+- fix SORACOM profile selection
 
 ## 0.15.1 - 2020-05-06
 

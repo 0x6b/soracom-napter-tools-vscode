@@ -144,7 +144,7 @@ function getProfiles(): SoracomConfiguration[] {
 }
 
 function getProfileFor(profiles: SoracomConfiguration[], name: string): SoracomConfiguration | null {
-  if (profiles.length > 1) {
+  if (profiles.length > 0) {
     const candidate = profiles.filter((p) => p.name === name);
     if (candidate.length > 0) {
       return candidate[0];
