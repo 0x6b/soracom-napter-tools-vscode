@@ -6,7 +6,7 @@ Napter is an on-demand networking service for devices using Soracom Air for Cell
 
 ## Requirements
 
-- [**Visual Studio Code**](https://code.visualstudio.com/), tested on v1.46.1.
+- [**Visual Studio Code**](https://code.visualstudio.com/), tested on v1.69.0.
 - [**Visual Studio Code Remote - SSH Extension**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), tested on v0.51.0. See [Connect over SSH with Visual Studio Code](https://code.visualstudio.com/remote-tutorials/ssh/getting-started) for setup.
 - **SORACOM user account**. See [SORACOM Air for セルラーの利用方法](https://soracom.jp/start/) (Japanese) or [Getting Started | Soracom IoT Connectivity](https://www.soracom.io/getting-started/) (English) for detail.
 - **SORACOM API credential**. Follow [SORACOM API 利用ガイド](https://dev.soracom.io/jp/docs/api_guide/) (Japanese) or [Soracom API Usage Guide](https://developers.soracom.io/en/docs/tools/api-reference/) (English) to configure your AuthKey ID and Secret. See [Supported Authentication Method](#supported-authentication-method).
