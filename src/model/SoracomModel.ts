@@ -7,13 +7,13 @@ export class SoracomModel {
   public async listSubscribers(): Promise<Subscriber[]> {
     const { data, status, statusText } = await this.client.callApi({
       method: "GET",
-      path: "/v1/subscribers",
-      query: { status_filter: "active", limit: "1000" },
+      path: "/v1/query/subscribers",
+      query: { status_filter: "active", session_status: "ONLINE", search_type: "AND", limit: "100" },
     });
     if (status !== 200) {
       throw new Error(statusText);
     }
-    return data.filter((s: Subscriber) => s.sessionStatus && s.sessionStatus.online);
+    return data;
   }
 
   public async getSubscriber(imsi: string): Promise<Subscriber> {
