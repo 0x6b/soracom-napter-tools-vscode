@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools-vscode",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from Visual Studio Code.",
-  "version": "0.15.3",
+  "version": "0.16.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
