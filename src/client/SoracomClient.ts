@@ -48,7 +48,7 @@ export class SoracomClient {
         this.lastAuthenticated = new Date().getTime();
         await this.auth();
       } catch (e) {
-        throw new Error(e);
+        throw new Error(`${e}`);
       }
     }
 

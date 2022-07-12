@@ -212,7 +212,7 @@ export class SimDataProvider implements TreeDataProvider<Node> {
   }
 
   refresh(): void {
-    this._onDidChangeTreeData.fire();
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   copy(node: Node): void {
