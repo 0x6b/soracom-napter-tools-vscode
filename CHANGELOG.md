@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.16.0 - 2022-07-12
+
+- update dependencies
+- tested with vscode v1.69.0
+- use query API for better results
+
 ## 0.15.3 - 2020-06-28
 
 - update documentation on tested vscode version to v1.46.1

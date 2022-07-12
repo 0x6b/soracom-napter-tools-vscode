@@ -31,8 +31,8 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   };
 
   private statusBarItem: StatusBarItem;
-  private _onTreeRefreshed: EventEmitter<User> = new EventEmitter<User>();
-  private onTreeRefreshed: Event<User> = this._onTreeRefreshed.event;
+  private _onTreeRefreshed: EventEmitter<User | undefined> = new EventEmitter<User | undefined>();
+  private onTreeRefreshed: Event<User | undefined> = this._onTreeRefreshed.event;
 
   private _onSubscriberSelected: EventEmitter<string> = new EventEmitter<string>();
   private onSubscriberSelected: Event<string> = this._onSubscriberSelected.event;
@@ -53,12 +53,14 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
     this.statusBarItem.command = "openUserConsole";
 
     this.onTreeRefreshed((e) => {
-      this.statusBarItem.text = `$(info) ${this.masked(e.userName, /\w/gi, "x")}@${this.masked(
-        e.operatorId,
-        /\d/g,
-        "0"
-      )}`;
-      this.statusBarItem.show();
+      if (e != undefined) {
+        this.statusBarItem.text = `$(info) ${this.masked(e.userName, /\w/gi, "x")}@${this.masked(
+          e.operatorId,
+          /\d/g,
+          "0"
+        )}`;
+        this.statusBarItem.show();
+      }
     });
     this.mask = mask;
   }
@@ -72,8 +74,8 @@ export class NapterDataProvider implements TreeDataProvider<Node> {
   }
 
   refresh(): void {
-    this._onTreeRefreshed.fire();
-    this._onDidChangeTreeData.fire();
+    this._onTreeRefreshed.fire(undefined);
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   createPortMapping(node: Node | undefined): void {
