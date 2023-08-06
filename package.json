@@ -29,16 +29,6 @@
   "qna": false,
   "icon": "media/SISS024.png",
   "license": "MIT",
-  "activationEvents": [
-    "onView:napterDataProvider",
-    "onCommand:napterDataProvider.refresh",
-    "onCommand:napterDataProvider.toggleCoverage",
-    "onCommand:napterDataProvider.createPortMapping",
-    "onCommand:napterDataProvider.deletePortMapping",
-    "onCommand:napterDataProvider.connect",
-    "onCommand:openUserConsole",
-    "onCommand:simDataProvider.refresh"
-  ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
