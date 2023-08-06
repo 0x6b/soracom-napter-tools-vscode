@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.17.0 - 2023-08-06
+
+- update dependencies
+- tested with vscode v1.81.0
+
 ## 0.16.0 - 2022-07-12
 
 - update dependencies
