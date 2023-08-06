@@ -6,10 +6,10 @@ Napter is an on-demand networking service for devices using Soracom Air for Cell
 
 ## Requirements
 
-- [**Visual Studio Code**](https://code.visualstudio.com/), tested on v1.69.0.
-- [**Visual Studio Code Remote - SSH Extension**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), tested on v0.51.0. See [Connect over SSH with Visual Studio Code](https://code.visualstudio.com/remote-tutorials/ssh/getting-started) for setup.
+- [**Visual Studio Code**](https://code.visualstudio.com/), tested on v1.81.0.
+- [**Visual Studio Code Remote - SSH Extension**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), tested on v0.102.0. See [Connect over SSH with Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh-tutorial) for setup.
 - **SORACOM user account**. See [SORACOM Air for セルラーの利用方法](https://soracom.jp/start/) (Japanese) or [Getting Started | Soracom IoT Connectivity](https://www.soracom.io/getting-started/) (English) for detail.
-- **SORACOM API credential**. Follow [SORACOM API 利用ガイド](https://dev.soracom.io/jp/docs/api_guide/) (Japanese) or [Soracom API Usage Guide](https://developers.soracom.io/en/docs/tools/api-reference/) (English) to configure your AuthKey ID and Secret. See [Supported Authentication Method](#supported-authentication-method).
+- **SORACOM API credential**. Follow [SORACOM API 利用ガイド](https://users.soracom.io/ja-jp/tools/api/) (Japanese) or [Soracom API Usage Guide](https://developers.soracom.io/en/docs/tools/api-reference/) (English) to configure your AuthKey ID and Secret. See [Supported Authentication Method](#supported-authentication-method).
 - **SSH server connected with SORACOM IoT SIM** e.g. Raspberry Pi with USB dongle. Soracom provides [通信モジュール/USB ドングル](https://soracom.jp/products/module/) at the [User Console](https://console.soracom.io) or [US Online Store](https://www.soracom.io/us-store/).
 
 ## Usage
@@ -98,7 +98,7 @@ Authkey method is recommended for security reason. Email and password should wor
 
 - Japanese
   - [IoT プラットフォーム 株式会社ソラコム](https://soracom.jp/)
-  - [SORACOM Napter とは | ユーザーガイド | SORACOM Developers](https://dev.soracom.io/jp/napter/what-is-napter/)
+  - [SORACOM Napter | ドキュメント | ソラコムユーザーサイト - SORACOM Users](https://users.soracom.io/ja-jp/docs/napter/)
 - English
   - [Soracom | Cellular IoT Cloud Connectivity](https://www.soracom.io/)
   - [Soracom Napter Overview | SORACOM Developers](https://developers.soracom.io/en/docs/napter/)

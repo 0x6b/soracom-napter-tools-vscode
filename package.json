@@ -2,7 +2,7 @@
   "name": "soracom-napter-tools-vscode",
   "displayName": "SORACOM Napter Tools",
   "description": "Manage SORACOM Napter port mappings from Visual Studio Code.",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "publisher": "0x6b",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/0x6b/soracom-napter-tools-vscode",
   "engines": {
-    "vscode": "^1.69.0"
+    "vscode": "^1.81.0"
   },
   "categories": [
     "Other"
@@ -29,16 +29,6 @@
   "qna": false,
   "icon": "media/SISS024.png",
   "license": "MIT",
-  "activationEvents": [
-    "onView:napterDataProvider",
-    "onCommand:napterDataProvider.refresh",
-    "onCommand:napterDataProvider.toggleCoverage",
-    "onCommand:napterDataProvider.createPortMapping",
-    "onCommand:napterDataProvider.deletePortMapping",
-    "onCommand:napterDataProvider.connect",
-    "onCommand:openUserConsole",
-    "onCommand:simDataProvider.refresh"
-  ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
@@ -375,21 +365,21 @@
     "format": "prettier --write 'src/**/*.ts'"
   },
   "devDependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^18.0.3",
-    "@types/vscode": "^1.69.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.4.8",
+    "@types/vscode": "^1.81.0",
     "glob": "^8.0.3",
-    "mocha": "^10.0.0",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.8.2",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.1",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
     "tslint": "^6.1.3",
-    "typescript": "^4.7.4",
+    "typescript": "^5.1.6",
     "vscode-test": "^1.6.1"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "@types/glob": "^8.1.0",
+    "axios": "^1.4.0"
   },
   "prettier": {
     "printWidth": 120
