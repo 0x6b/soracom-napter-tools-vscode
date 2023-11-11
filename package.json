@@ -379,7 +379,7 @@
   },
   "dependencies": {
     "@types/glob": "^8.1.0",
-    "axios": "^1.4.0"
+    "axios": "^1.6.0"
   },
   "prettier": {
     "printWidth": 120
